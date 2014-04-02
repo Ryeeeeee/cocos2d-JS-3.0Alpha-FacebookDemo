@@ -17,8 +17,8 @@ obj/
 .DS_Strore
 local.properties
 *.xcodeproj
-
-# Gradle files
+project.properties
+# Gradlo fileest
 .gradle/
 build/
 
