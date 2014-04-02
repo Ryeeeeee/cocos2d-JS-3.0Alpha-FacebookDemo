@@ -17,7 +17,8 @@ obj/
 .DS_Strore
 local.properties
 *.xcodeproj
-project.properties
+frameworks/js-bindings/cocos2d-x/cocos/2d/platform/android/java/project.properties
+frameworks/runtime-src/proj.android/project.properties
 # Gradlo fileest
 .gradle/
 build/
