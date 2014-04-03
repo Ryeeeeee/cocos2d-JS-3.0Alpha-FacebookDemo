@@ -192,7 +192,7 @@ var HeadLayer = cc.Layer.extend({
     checkLoginStatus:function(){
         var authinfo = FB.getAuthResponse()
         //console.log('authinfo: ',authinfo);
-        if ( authinfo['accessToken'] ){
+        if ( authinfo != null && authinfo['accessToken'] != null){
             console.log('update login status.');
             this.afterLogin();
         }
