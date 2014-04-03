@@ -6,6 +6,8 @@
  * To change this template use File | Settings | File Templates.
  */
 
+if (cc.sys.isNative)
+{
 var FB = FB || {};
 var FacebookJsb = FacebookJsb || {};
 
@@ -166,3 +168,4 @@ FB.callback = function (index, params) {
             this.cbArray[index]();
     }
 };
+}

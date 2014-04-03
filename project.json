@@ -16,6 +16,7 @@
         "src/LoadImage.js",
         "src/littleLayer.js",
         "src/gameLayer.js",
+        "src/facebook-connect-plugin.js",
         "src/myApp.js"
     ]
 }
