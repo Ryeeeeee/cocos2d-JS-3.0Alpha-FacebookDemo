@@ -49,6 +49,7 @@ var MenuLayer = cc.Layer.extend({
     },
     onClick:function(node){
         var tag = node.getTag();
+        cc.log('you need', tag);
         switch (tag){
             case BTN_PLAY:{
                 //display the interface of game.
@@ -99,7 +100,7 @@ var MenuLayer = cc.Layer.extend({
 
         var normal_sp = cc.Sprite.create(normal);
         var down_sp = cc.Sprite.create(down);
-        var btn = cc.MenuItemSprite.create(normal_sp, down_sp, this.onClick, this);
+        var btn = cc.MenuItemSprite.create(normal_sp, down_sp, null, this.onClick, this);
         btn.setTag(tag);
         return btn;
     }
@@ -185,6 +186,16 @@ var HeadLayer = cc.Layer.extend({
         this.logout.setPosition(cc.p(165, 26));
         this.menu.setPosition(cc.p(0,0));
         this.logout.setVisible(false);
+
+        this.schedule(this.checkLoginStatus, 3, 0, 3);
+    },
+    checkLoginStatus:function(){
+        var authinfo = FB.getAuthResponse()
+        //console.log('authinfo: ',authinfo);
+        if ( authinfo['accessToken'] ){
+            console.log('update login status.');
+            this.afterLogin();
+        }
     },
     onClick:function(sender){
         var tag = sender.getTag();
@@ -204,14 +215,17 @@ var HeadLayer = cc.Layer.extend({
     },
     loginCallback:function(response){
         if(response.authResponse && response.status=='connected'){
-            gFriendData = [];
-            FB.api("/me",this.meInformationCallback.bind(this));
-            FB.api("/me/friends",this.getFriendsCallback.bind(this));
-            gLoginStatus = true;
-            this.setBtnState(false);
-            
-            g_useFacebook = true;
+            this.afterLogin();
         }
+    },
+    afterLogin:function(){
+        gFriendData = [];
+        FB.api("/me",this.meInformationCallback.bind(this));
+        FB.api("/me/friends",this.getFriendsCallback.bind(this));
+        gLoginStatus = true;
+        this.setBtnState(false);
+
+        g_useFacebook = true;
     },
     getFriendsCallback:function(response){
         if(response && response.data){
@@ -224,9 +238,13 @@ var HeadLayer = cc.Layer.extend({
             cc.log(response.error);
             return;
         }
-		var id = response.id;
-        LoadUrlImage.addImageAsync("http://graph.facebook.com/"+id+"/picture?width=90&height=90", this.loadImg.bind(this));
+        //console.log("userinfo:", response);
+        var strName = "Welcome, "+response.name;
 
+        this.lbName.setString(strName);
+		var id = response.id;
+        //LoadUrlImage.addImageAsync("http://graph.facebook.com/"+id+"/picture?width=90&height=90", this.loadImg.bind(this));
+        console.log("here need add img.");
     },
     loadImg:function(response){
     	if(response){
@@ -243,7 +261,7 @@ var HeadLayer = cc.Layer.extend({
     },
     setBtnState:function(st){
         this.login.setVisible(st);
-        this.logout.setVisible(false);
+        this.logout.setVisible(!st);
     },
     setName:function(name){
         this.lbName.setString("Welcome, "+name);
