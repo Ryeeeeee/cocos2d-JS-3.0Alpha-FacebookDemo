@@ -90,6 +90,7 @@ var res = {
     s_logout0 : "res/logout0.png",
     s_logout1 : "res/logout1.png"
 }
+
 var g_resources = [
     //image
     res.s_Arial_fnt,
