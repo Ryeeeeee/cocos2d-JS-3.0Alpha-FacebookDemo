@@ -61,7 +61,8 @@ var MenuLayer = cc.Layer.extend({
                 //BRAG
                 if(gLoginStatus){
                     //Brag!Post to Your Wall.(to you friends.)
-                    if (gScore) {
+                    console.log('gScore:', gScore);
+                    if (gScore >= 0) {
                         FB.ui({ method: 'feed',
                             caption: 'I just smashed ' + gScore + ' friends! Can you beat it?',
                             picture: 'http://www.friendsmash.com/images/logo_large.jpg',
@@ -187,7 +188,16 @@ var HeadLayer = cc.Layer.extend({
         this.menu.setPosition(cc.p(0,0));
         this.logout.setVisible(false);
 
-        this.schedule(this.checkLoginStatus, 3, 0, 3);
+        //this.schedule(this.checkLoginStatus, 3, 0, 3);
+        this.count = 1;
+        this.scheduleUpdate();
+    },
+    update:function(dt){
+        if(this.count % 11 == 0){
+            this.checkLoginStatus();
+            this.count = 0;
+        }
+        this.count ++;
     },
     checkLoginStatus:function(){
         var authinfo = FB.getAuthResponse()
