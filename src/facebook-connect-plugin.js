@@ -32,7 +32,10 @@ FB.login = function (cb, opts) {
                 FacebookJsb.login(cbIndex);
         }
         else
+        {
+            cc.log('ajhsdjahdjsasd');
             FacebookJsb.login(cbIndex);
+        }
     }
     else
         FacebookJsb.login(-1);
