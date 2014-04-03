@@ -16,6 +16,9 @@
 
 USING_NS_CC;
 using namespace CocosDenshion;
+//add for facebook
+extern void register_facebook_js(JSContext* cx, JSObject* global);
+extern void register_LoadUrlImage_js(JSContext* cx, JSObject* global);
 
 AppDelegate::AppDelegate()
 {

@@ -18,6 +18,7 @@ var HelloWorldLayer = cc.Layer.extend({
             res.CloseSelected_png,
             function () {
                 cc.log("Menu is clicked!");
+                                                FB.login(loginback);
             }, this);
         closeItem.attr({
             x: size.width - 20,
@@ -60,6 +61,10 @@ var HelloWorldLayer = cc.Layer.extend({
         return true;
     }
 });
+
+var loginback=function(){
+    cc.log('aaa')
+}
 
 var HelloWorldScene = cc.Scene.extend({
     onEnter:function () {

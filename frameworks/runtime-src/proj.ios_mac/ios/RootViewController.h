@@ -24,10 +24,14 @@
  ****************************************************************************/
 
 #import <UIKit/UIKit.h>
+#import <FacebookSDK/FacebookSDK.h>
 
-
-@interface RootViewController : UIViewController {
+@interface RootViewController : UIViewController <UIApplicationDelegate>
+{
 
 }
+
+@property (strong, nonatomic) FBSession *session;
+
 - (BOOL)prefersStatusBarHidden;
 @end
