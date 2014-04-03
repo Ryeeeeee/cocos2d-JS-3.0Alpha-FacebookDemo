@@ -12,6 +12,10 @@
 
     "jsList" : [
         "src/resource.js",
-        "src/app.js"
+        "src/uiconst.js",
+        "src/LoadImage.js",
+        "src/littleLayer.js",
+        "src/gameLayer.js",
+        "src/myApp.js"
     ]
 }
