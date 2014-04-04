@@ -174,8 +174,11 @@ var LifeLayer = cc.Layer.extend({
 });
 
 var gAllFriends = [];
+var gHeadImg;
 var HeadLayer = cc.Layer.extend({
     bInGetUserInfo:false,
+    headImg:null,
+    headimgName:null,
     init:function(){
         this.lbName = cc.LabelBMFont.create("Welcome, player.", res.s_Arial_fnt);
         this.lbName.setAnchorPoint(cc.p(0, 0));
@@ -190,6 +193,8 @@ var HeadLayer = cc.Layer.extend({
         this.logout.setPosition(cc.p(165, 26));
         this.menu.setPosition(cc.p(0,0));
         this.logout.setVisible(false);
+        gHeadImg = cc.Sprite.create();
+        this.addChild(gHeadImg);
 
         //this.schedule(this.checkLoginStatus, 3, 0, 3);
         this.count = 1;
@@ -204,28 +209,40 @@ var HeadLayer = cc.Layer.extend({
     },
     checkLoginStatus:function(){
         //console.log('FB',FB);
-       if(!cc.sys.isNative)
-       {
-           if(FB && !this.bInGetUserInfo)
-           {
-              var authinfo = FB.getAuthResponse()
-            //console.log('authinfo: ',authinfo);
-             if ( authinfo != null && authinfo['accessToken'] != null){
-                //console.log('update login status.');
-              this.bInGetUserInfo = true;
-              this.afterLogin();
-           }
+        if(FB && !this.bInGetUserInfo){
+            if(!cc.sys.isNative){
+                var authinfo = FB.getAuthResponse()
+                //console.log('authinfo: ',authinfo);
+                if ( authinfo != null && authinfo['accessToken'] != null){
+                    //console.log('update login status.');
+                    this.bInGetUserInfo = true;
+                    this.afterLogin();
+                }
+            }
+            else{
+                ;
+            }
         }
-      }
+        else{
+            if (FB == null)
+                cc.log("can't connet to facebook,please check the internet.")
+            else cc.log("you are not login in.")
+        }
     },
     onClick:function(sender){
         var tag = sender.getTag();
+        if (FB == null){
+            cc.log("can't connet to facebook,please check the internet.")
+            return;
+        }
         switch(tag){
             case 1:{
                 //facebook login.
                 cc.log("-------log in-----");
                 if (FB)
                     FB.login(this.loginCallback.bind(this));
+                else
+                    cc.log("can't connet to facebook,please check the internet.")
             }
                 break;
             case 2:{
@@ -266,12 +283,13 @@ var HeadLayer = cc.Layer.extend({
 
         this.lbName.setString(strName);
 		var id = response.id;
-        //console.log("here will add img.");
         if(!cc.sys.isNative){
-            var spHead = cc.Sprite.create("http://graph.facebook.com/"+id+"/picture?width=90&height=90");
-            //console.log('spHead',spHead);
-            spHead.setPosition(50, 0);
-            this.addChild(spHead);
+            console.log("here will add img.");
+//            var spHead = cc.Sprite.create("http://graph.facebook.com/"+id+"/picture?width=90&height=90");
+//            console.log('spHead',spHead);
+//            spHead.setPosition(50, 0);
+//            this.addChild(spHead);
+            this.setHeadImg("http://graph.facebook.com/"+id+"/picture?width=90&height=90");
         }
         else LoadUrlImage.addImageAsync("http://graph.facebook.com/"+id+"/picture?width=90&height=90", this.loadImg.bind(this));
     },
@@ -291,6 +309,15 @@ var HeadLayer = cc.Layer.extend({
     setBtnState:function(st){
         this.login.setVisible(st);
         this.logout.setVisible(!st);
+        if(this.headImg != null){
+            this.headImg.setVisible(!st);
+        }
+        if(!cc.sys.isNative)
+            console.log("headimg:",gHeadImg);
+        if(this.headImg != null){
+            this.headImg.removeFromParent(true);
+            this.headImg = null;
+        }
     },
     setName:function(name){
         this.lbName.setString("Welcome, "+name);
@@ -298,7 +325,11 @@ var HeadLayer = cc.Layer.extend({
     setHeadImg:function(src){
         this.headImg = cc.Sprite.create(src);
         this.addChild(this.headImg);
-        this.headImg.setPosition(cc.p(50, 0));
+        this.headimgName = src;
+        this.headImg.setPosition(50, 0);
+        this.headImg.setVisible(true);
+        if(!cc.sys.isNative)
+            console.log('in add head image.',gHeadImg);
     },
     setHeadImgSp:function(sp){
         this.addChild(sp);
@@ -310,7 +341,11 @@ var HeadLayer = cc.Layer.extend({
 
         var normal_sp = cc.Sprite.create(normal);
         var down_sp = cc.Sprite.create(down);
-        var btn = cc.MenuItemSprite.create(normal_sp, down_sp, this.onClick, this)
+        var btn;
+        if(cc.sys.isNative)
+            btn = cc.MenuItemSprite.create(normal_sp, down_sp, this.onClick, this)
+        else
+            btn = cc.MenuItemSprite.create(normal_sp, down_sp, null, this.onClick, this)
         btn.setTag(tag);
         return btn;
     }

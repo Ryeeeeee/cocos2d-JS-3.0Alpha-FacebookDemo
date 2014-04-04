@@ -233,7 +233,7 @@ var MyScene = cc.Scene.extend({
     }
 });
 
-if(!cc.sys.isNative){
+if (!cc.sys.isNative){
 // send Facebook Instrumentation
 var xhr = new XMLHttpRequest();
 xhr.open("POST", "https://www.facebook.com/impression.php");

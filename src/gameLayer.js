@@ -137,9 +137,11 @@ var GameLayer = cc.Layer.extend({
             this.addChild(effect);
             arrEffects.push(effect);
         }
+        return false;
     },
     addEffect:function(num){
         showEffect += 1;
+        //console.log('showEffect',showEffect);
     },
     disParticle:function(){
         cc.log("will addParticle.");
@@ -307,8 +309,14 @@ var particle = cc.Sprite.extend({
 });
 
 var entity = cc.Sprite.extend ({
+    bIsClicked:false,
     init1:function(src, isFriend) {
-        this.init(src);
+        if(!cc.sys.isNative)
+           this.init(src);
+        else{
+            var sp = cc.Sprite.create(src);
+            this.initWithTexture(sp.getTexture());
+        }
         this.positionX = 0;
         this.positionY = 0;
         this.velocityX = 0;
@@ -356,36 +364,38 @@ var entity = cc.Sprite.extend ({
         }
     },
     isClicked:function(sender, point){
-        //cc.log("click me.", sender);
-
-        if(this.isCoin)
+        if(!this.bIsClicked)
         {
-            gCoins ++;
-            //cc.log("gCoins: ", gCoins);
-            //remove from screen
-            this.inScene = false;
+            if(this.isCoin)
+            {
+                gCoins ++;
+                //cc.log("gCoins: ", gCoins);
+                //remove from screen
+                this.inScene = false;
 
-            return;
-        }
-        if(this.isFriend){
-            gScore ++;
-            //cc.log("gScore: ", gScore);
-            //remove from screen
-            this.inScene = false;
+                return;
+            }
+            if(this.isFriend){
+                gScore ++;
+                //console.log("gScore: ", gScore);
+                //remove from screen
+                this.inScene = false;
 
-            //add one score.
-            this.getParent().addEffect(1);
-        }
-        else{
-            //gameover。
-            this.getParent().unscheduleUpdate();
-            var scale = cc.ScaleTo.create(0.6, 5, 5);
-            var rot = cc.RotateBy.create(0.6, 90, 90);
-            this.runAction(rot);
-            var seq = cc.Sequence.create(scale,
-                cc.CallFunc.create(this.endGame, this));
-            this.runAction(scale);
-            this.runAction(seq);
+                //add one score.
+                this.getParent().addEffect(1);
+            }
+            else{
+                //gameover。
+                this.getParent().unscheduleUpdate();
+                var scale = cc.ScaleTo.create(0.6, 5, 5);
+                var rot = cc.RotateBy.create(0.6, 90, 90);
+                this.runAction(rot);
+                var seq = cc.Sequence.create(scale,
+                    cc.CallFunc.create(this.endGame, this));
+                this.runAction(scale);
+                this.runAction(seq);
+            }
+            this.bIsClicked = true;
         }
     },
     endGame:function(){
