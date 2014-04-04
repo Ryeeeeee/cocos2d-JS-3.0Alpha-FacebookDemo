@@ -62,7 +62,7 @@ var MenuLayer = cc.Layer.extend({
                     //BRAG
                     if(gLoginStatus){
                         //Brag!Post to Your Wall.(to you friends.)
-                        console.log('gScore:', gScore);
+                        //console.log('gScore:', gScore);
                         if (gScore >= 0) {
                             FB.ui({ method: 'feed',
                                 caption: 'I just smashed ' + gScore + ' friends! Can you beat it?',
@@ -174,8 +174,11 @@ var LifeLayer = cc.Layer.extend({
 });
 
 var gAllFriends = [];
+var gHeadImg;
 var HeadLayer = cc.Layer.extend({
     bInGetUserInfo:false,
+    headImg:null,
+    headimgName:null,
     init:function(){
         this.lbName = cc.LabelBMFont.create("Welcome, player.", res.s_Arial_fnt);
         this.lbName.setAnchorPoint(cc.p(0, 0));
@@ -190,6 +193,8 @@ var HeadLayer = cc.Layer.extend({
         this.logout.setPosition(cc.p(165, 26));
         this.menu.setPosition(cc.p(0,0));
         this.logout.setVisible(false);
+        gHeadImg = cc.Sprite.create();
+        this.addChild(gHeadImg);
 
         //this.schedule(this.checkLoginStatus, 3, 0, 3);
         this.count = 1;
@@ -203,7 +208,7 @@ var HeadLayer = cc.Layer.extend({
         this.count ++;
     },
     checkLoginStatus:function(){
-        console.log('FB',FB);
+        //console.log('FB',FB);
         if(FB && !this.bInGetUserInfo){
             var authinfo = FB.getAuthResponse()
             //console.log('authinfo: ',authinfo);
@@ -213,15 +218,26 @@ var HeadLayer = cc.Layer.extend({
                 this.afterLogin();
             }
         }
+        else{
+            if (FB == null)
+                cc.log("can't connet to facebook,please check the internet.")
+            else cc.log("you are not login in.")
+        }
     },
     onClick:function(sender){
         var tag = sender.getTag();
+        if (FB == null){
+            cc.log("can't connet to facebook,please check the internet.")
+            return;
+        }
         switch(tag){
             case 1:{
                 //facebook login.
                 cc.log("-------log in-----");
                 if (FB)
                     FB.login(this.loginCallback.bind(this));
+                else
+                    cc.log("can't connet to facebook,please check the internet.")
             }
                 break;
             case 2:{
@@ -264,10 +280,11 @@ var HeadLayer = cc.Layer.extend({
 		var id = response.id;
         console.log("here will add img.");
         if(!cc.sys.isNative){
-            var spHead = cc.Sprite.create("http://graph.facebook.com/"+id+"/picture?width=90&height=90");
-            console.log('spHead',spHead);
-            spHead.setPosition(50, 0);
-            this.addChild(spHead);
+//            var spHead = cc.Sprite.create("http://graph.facebook.com/"+id+"/picture?width=90&height=90");
+//            console.log('spHead',spHead);
+//            spHead.setPosition(50, 0);
+//            this.addChild(spHead);
+            this.setHeadImg("http://graph.facebook.com/"+id+"/picture?width=90&height=90");
         }
         else LoadUrlImage.addImageAsync("http://graph.facebook.com/"+id+"/picture?width=90&height=90", this.loadImg.bind(this));
     },
@@ -287,6 +304,14 @@ var HeadLayer = cc.Layer.extend({
     setBtnState:function(st){
         this.login.setVisible(st);
         this.logout.setVisible(!st);
+        if(this.headImg != null){
+            this.headImg.setVisible(!st);
+        }
+        console.log("headimg:",gHeadImg);
+        if(this.headImg != null){
+            this.headImg.removeFromParent(true);
+            this.headImg = null;
+        }
     },
     setName:function(name){
         this.lbName.setString("Welcome, "+name);
@@ -294,7 +319,10 @@ var HeadLayer = cc.Layer.extend({
     setHeadImg:function(src){
         this.headImg = cc.Sprite.create(src);
         this.addChild(this.headImg);
-        this.headImg.setPosition(cc.p(50, 0));
+        this.headimgName = src;
+        this.headImg.setPosition(50, 0);
+        this.headImg.setVisible(true);
+        console.log('in add head image.',gHeadImg);
     },
     setHeadImgSp:function(sp){
         this.addChild(sp);
