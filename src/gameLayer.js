@@ -24,6 +24,7 @@ var arrEffects = [];
 var showEffect = 0;
 
 var GameLayer = cc.Layer.extend({
+    listener1:null,
     init:function(){
 //        this.setTouchEnabled(true);
 //        this.setTouchMode(cc.TOUCH_ONE_BY_ONE);
@@ -47,6 +48,22 @@ var GameLayer = cc.Layer.extend({
             friendName = arrName[gFriendID];
         }
         this.getParent().setTitle(friendName);
+
+        this.addTouchEvent();
+    },
+    addTouchEvent:function(){
+        var gameLy = this;
+        this.listener1 = cc.EventListener.create({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            //onTouchBegan event callback function
+            onTouchBegan:gameLy.onTouchBegan1.bind(gameLy)
+        });
+        cc.eventManager.addListener(this.listener1, this);
+    },
+    remoteTouchEvent:function(){
+        if (this.listener1 != null)
+            cc.eventManager.removeListener(this.listener1);
+        this.listener1 = null;
     },
     friendInfoCallback:function(response){
         if(response){
@@ -68,12 +85,15 @@ var GameLayer = cc.Layer.extend({
         {
             this.initData();
             this.scheduleUpdate();
+            this.addTouchEvent();
         }
-        //else this.unscheduleUpdate();
+        else{
+            this.remoteTouchEvent();
+        }
     },
-    onTouchBegan:function(event){
-        //cc.log("touch began.");
-        var pClick = event.getLocation();
+    onTouchBegan1:function(touch, event){
+        cc.log("touch began.");
+        var pClick = touch.getLocation();
         showEffect = 0;
         for(var i=0; i<gEntities.length; i++)
         {
@@ -133,19 +153,6 @@ var GameLayer = cc.Layer.extend({
 // 
 //         this._emitter.setAutoRemoveOnFinish(true);
     },
-//    onTouchesBegan:function(event)
-//    {
-//        cc.log("onTouchesBegan");
-//        this.logTH();
-//
-//        // Frenzy?
-//        if (!(gScore % 10))
-//        {
-//            for (var i=0; i<Math.floor((gScore/20)); ++i) {
-//                this.spawnEntity(true);
-//            }
-//        }
-//    },
     update:function(dt){
         if(timer%tSpace==0)
         {

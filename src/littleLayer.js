@@ -50,50 +50,52 @@ var MenuLayer = cc.Layer.extend({
     onClick:function(node){
         var tag = node.getTag();
         cc.log('you need', tag);
-        switch (tag){
-            case BTN_PLAY:{
-                //display the interface of game.
-                //need one friend's headimg.
-                stManager.changeState(ST_PLAY);
-            }
-                break;
-            case BTN_BRAG:{
-                //BRAG
-                if(gLoginStatus){
-                    //Brag!Post to Your Wall.(to you friends.)
-                    console.log('gScore:', gScore);
-                    if (gScore >= 0) {
-                        FB.ui({ method: 'feed',
-                            caption: 'I just smashed ' + gScore + ' friends! Can you beat it?',
-                            picture: 'http://www.friendsmash.com/images/logo_large.jpg',
-                            name: 'Checkout my Friend Smash greatness!'
-                        }, this.fbCallback);
+        //if (gLoginStatus){
+            switch (tag){
+                case BTN_PLAY:{
+                    //display the interface of game.
+                    //need one friend's headimg.
+                    stManager.changeState(ST_PLAY);
+                }
+                    break;
+                case BTN_BRAG:{
+                    //BRAG
+                    if(gLoginStatus){
+                        //Brag!Post to Your Wall.(to you friends.)
+                        console.log('gScore:', gScore);
+                        if (gScore >= 0) {
+                            FB.ui({ method: 'feed',
+                                caption: 'I just smashed ' + gScore + ' friends! Can you beat it?',
+                                picture: 'http://www.friendsmash.com/images/logo_large.jpg',
+                                name: 'Checkout my Friend Smash greatness!'
+                            }, this.fbCallback);
+                        }
+                    }
+                    else{
+                        //not login.
+                        cc.log("not login");
                     }
                 }
-                else{
-                    //not login.
-                    cc.log("not login");
+                    break;
+                case BTN_CHALLENGE:{
+                    //挑战，同上
+                    if(gLoginStatus){
+                        //Play Friend Smash with me!(all friends.)
+                        FB.ui({method: 'apprequests', message: 'My Great Request'}, this.requestCallback);
+                    }
+                    else{
+                        //not login.
+                        cc.log("not login");
+                    }
                 }
-            }
-                break;
-            case BTN_CHALLENGE:{
-                //挑战，同上
-                if(gLoginStatus){
-                    //Play Friend Smash with me!(all friends.)
-                    FB.ui({method: 'apprequests', message: 'My Great Request'}, this.requestCallback);
+                    break;
+                case BTN_STORE:{
+                    //go store
+                    cc.log("CLICK STORE!------");
                 }
-                else{
-                    //not login.
-                    cc.log("not login");
-                }
+                    break;
             }
-                break;
-            case BTN_STORE:{
-                //go store
-                cc.log("CLICK STORE!------");
-            }
-                break;
-        }
+        //}
     },
     getBtn:function(normal, down, tag){
         if(down == null)
@@ -173,6 +175,7 @@ var LifeLayer = cc.Layer.extend({
 
 var gAllFriends = [];
 var HeadLayer = cc.Layer.extend({
+    bInGetUserInfo:false,
     init:function(){
         this.lbName = cc.LabelBMFont.create("Welcome, player.", res.s_Arial_fnt);
         this.lbName.setAnchorPoint(cc.p(0, 0));
@@ -193,18 +196,22 @@ var HeadLayer = cc.Layer.extend({
         this.scheduleUpdate();
     },
     update:function(dt){
-        if(this.count % 11 == 0 && !gLoginStatus){
+        if(this.count % 21 == 0 && !gLoginStatus){
             this.checkLoginStatus();
             this.count = 0;
         }
         this.count ++;
     },
     checkLoginStatus:function(){
-        var authinfo = FB.getAuthResponse()
-        //console.log('authinfo: ',authinfo);
-        if ( authinfo != null && authinfo['accessToken'] != null){
-            //console.log('update login status.');
-            this.afterLogin();
+        console.log('FB',FB);
+        if(FB && !this.bInGetUserInfo){
+            var authinfo = FB.getAuthResponse()
+            //console.log('authinfo: ',authinfo);
+            if ( authinfo != null && authinfo['accessToken'] != null){
+                //console.log('update login status.');
+                this.bInGetUserInfo = true;
+                this.afterLogin();
+            }
         }
     },
     onClick:function(sender){
@@ -213,12 +220,14 @@ var HeadLayer = cc.Layer.extend({
             case 1:{
                 //facebook login.
                 cc.log("-------log in-----");
-                FB.login(this.loginCallback.bind(this));
+                if (FB)
+                    FB.login(this.loginCallback.bind(this));
             }
                 break;
             case 2:{
                 cc.log("-------log out-----");
-                FB.logout(this.logoutCallback.bind(this));
+                if (FB)
+                    FB.logout(this.logoutCallback.bind(this));
             }
                 break;
         }
