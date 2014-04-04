@@ -422,6 +422,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		26AECAC318EE87BA00AC6474 /* FacebookIosSDK */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = FacebookIosSDK;
+			path = ../FacebookIosSDK;
+			sourceTree = "<group>";
+		};
 		5091732E17ECDF8A00D62437 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
@@ -461,6 +469,7 @@
 				C06D18B718C02D4A003D1A65 /* JS Common */,
 				D4545214156E28EF00887EB5 /* Classes */,
 				A92275401517C094001B78AA /* Frameworks */,
+				26AECAC318EE87BA00AC6474 /* FacebookIosSDK */,
 				D45446CC156DE73F00887EB5 /* ios */,
 				509D4ACA17EBB2BE00697056 /* mac */,
 				A922753E1517C094001B78AA /* Products */,
@@ -584,7 +593,7 @@
 				1A676826180E9BF70076BC67 /* PBXTargetDependency */,
 			);
 			name = "cocos2d-JS-3.0Alpha-FacebookDemo Mac";
-			productName = cocos2d-JS-3.0Alpha-FacebookDemo;
+			productName = "cocos2d-JS-3.0Alpha-FacebookDemo";
 			productReference = 509D4AAA17EBB24E00697056 /* cocos2d-JS-3.0Alpha-FacebookDemo Mac.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -606,7 +615,7 @@
 				1A676835180E9C110076BC67 /* PBXTargetDependency */,
 			);
 			name = "cocos2d-JS-3.0Alpha-FacebookDemo iOS";
-			productName = cocos2d-JS-3.0Alpha-FacebookDemo;
+			productName = "cocos2d-JS-3.0Alpha-FacebookDemo";
 			productReference = A922753D1517C094001B78AA /* cocos2d-JS-3.0Alpha-FacebookDemo iOS.app */;
 			productType = "com.apple.product-type.application";
 		};

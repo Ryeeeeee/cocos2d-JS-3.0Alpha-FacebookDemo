@@ -62,7 +62,7 @@ var MenuLayer = cc.Layer.extend({
                     //BRAG
                     if(gLoginStatus){
                         //Brag!Post to Your Wall.(to you friends.)
-                        console.log('gScore:', gScore);
+                        //console.log('gScore:', gScore);
                         if (gScore >= 0) {
                             FB.ui({ method: 'feed',
                                 caption: 'I just smashed ' + gScore + ' friends! Can you beat it?',
@@ -103,7 +103,7 @@ var MenuLayer = cc.Layer.extend({
 
         var normal_sp = cc.Sprite.create(normal);
         var down_sp = cc.Sprite.create(down);
-        var btn = cc.MenuItemSprite.create(normal_sp, down_sp, null, this.onClick, this);
+        var btn = cc.MenuItemSprite.create(normal_sp, down_sp, this.onClick, this);
         btn.setTag(tag);
         return btn;
     }
@@ -203,16 +203,20 @@ var HeadLayer = cc.Layer.extend({
         this.count ++;
     },
     checkLoginStatus:function(){
-        console.log('FB',FB);
-        if(FB && !this.bInGetUserInfo){
-            var authinfo = FB.getAuthResponse()
+        //console.log('FB',FB);
+       if(!cc.sys.isNative)
+       {
+           if(FB && !this.bInGetUserInfo)
+           {
+              var authinfo = FB.getAuthResponse()
             //console.log('authinfo: ',authinfo);
-            if ( authinfo != null && authinfo['accessToken'] != null){
+             if ( authinfo != null && authinfo['accessToken'] != null){
                 //console.log('update login status.');
-                this.bInGetUserInfo = true;
-                this.afterLogin();
-            }
+              this.bInGetUserInfo = true;
+              this.afterLogin();
+           }
         }
+      }
     },
     onClick:function(sender){
         var tag = sender.getTag();
@@ -262,10 +266,10 @@ var HeadLayer = cc.Layer.extend({
 
         this.lbName.setString(strName);
 		var id = response.id;
-        console.log("here will add img.");
+        //console.log("here will add img.");
         if(!cc.sys.isNative){
             var spHead = cc.Sprite.create("http://graph.facebook.com/"+id+"/picture?width=90&height=90");
-            console.log('spHead',spHead);
+            //console.log('spHead',spHead);
             spHead.setPosition(50, 0);
             this.addChild(spHead);
         }
