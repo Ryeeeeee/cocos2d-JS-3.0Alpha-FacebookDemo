@@ -193,7 +193,7 @@ var HeadLayer = cc.Layer.extend({
         this.scheduleUpdate();
     },
     update:function(dt){
-        if(this.count % 11 == 0){
+        if(this.count % 11 == 0 && !gLoginStatus){
             this.checkLoginStatus();
             this.count = 0;
         }
@@ -203,7 +203,7 @@ var HeadLayer = cc.Layer.extend({
         var authinfo = FB.getAuthResponse()
         //console.log('authinfo: ',authinfo);
         if ( authinfo != null && authinfo['accessToken'] != null){
-            console.log('update login status.');
+            //console.log('update login status.');
             this.afterLogin();
         }
     },
@@ -253,8 +253,14 @@ var HeadLayer = cc.Layer.extend({
 
         this.lbName.setString(strName);
 		var id = response.id;
-        //LoadUrlImage.addImageAsync("http://graph.facebook.com/"+id+"/picture?width=90&height=90", this.loadImg.bind(this));
-        console.log("here need add img.");
+        console.log("here will add img.");
+        if(!cc.sys.isNative){
+            var spHead = cc.Sprite.create("http://graph.facebook.com/"+id+"/picture?width=90&height=90");
+            console.log('spHead',spHead);
+            spHead.setPosition(50, 0);
+            this.addChild(spHead);
+        }
+        else LoadUrlImage.addImageAsync("http://graph.facebook.com/"+id+"/picture?width=90&height=90", this.loadImg.bind(this));
     },
     loadImg:function(response){
     	if(response){
@@ -306,7 +312,7 @@ var ResultLayer = cc.Layer.extend({
             return;
 
         //add a gray layer
-        var color = cc.c4b(123,123,123,123);
+        var color = cc.Color(123,123,123,123);
         var grayLayer = cc.LayerColor.create(color, winSize.width, winSize.height);
         //grayLayer.setAnchorPoint(cc.p(0,0));
         grayLayer.setPosition(cc.p(-20,-130));

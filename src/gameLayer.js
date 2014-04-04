@@ -51,7 +51,11 @@ var GameLayer = cc.Layer.extend({
     friendInfoCallback:function(response){
         if(response){
             var url = response.data.url;
-            LoadUrlImage.addImageAsync(url, this.loadImg.bind(this));
+            if (cc.sys.isNative)
+                LoadUrlImage.addImageAsync(url, this.loadImg.bind(this));
+            else {
+                this.friendImg = url;//cc.Sprite.create(url);
+            }
         }
     },
     loadImg:function(response){
