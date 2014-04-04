@@ -57,7 +57,8 @@ cc._isNodeJs = typeof require !== 'undefined' && require("fs");
  * Iterate over an object or an array, executing a function for each matched element.
  * @param {object|array} obj
  * @param {function} iterator
- * @param [{object}] context
+ * @param {object} context
+ * @param {object} [context]
  */
 cc.each = function(obj, iterator, context){
     if(!obj) return;
@@ -72,13 +73,28 @@ cc.each = function(obj, iterator, context){
     }
 };
 
+/**
+ * Check the url whether cross origin
+ * @param {String} url
+ * @returns {boolean}
+ */
+cc.isCrossOrigin = function(url){
+    if(!url){
+        cc.log("invalid URL");
+        return false;
+    }
+    var startIndex = url.indexOf("://");
+    if (startIndex == -1)
+        return false;
+
+    var endIndex = url.indexOf("/", startIndex + 3);
+    var urlOrigin = (endIndex == -1) ? url : url.substring(0, endIndex);
+    return urlOrigin != location.origin;
+};
 
 //+++++++++++++++++++++++++something about async begin+++++++++++++++++++++++++++++++
 cc.async = {
-    /**
-     * Counter for cc.async
-     * @param err
-     */
+    // Counter for cc.async
     _counterFunc : function(err){
         var counter = this.counter;
         if(counter.err) return;
@@ -102,27 +118,24 @@ cc.async = {
         if(counter.count == 0 && cb) cb.apply(cbTarget, [null, results]);
     },
 
-    /**
-     * Empty function for async.
-     * @private
-     */
+    // Empty function for async.
     _emptyFunc : function(){},
+
     /**
      * Do tasks parallel.
-     * @param tasks
-     * @param option
-     * @param cb
+     * @param {array} tasks
+     * @param {object|function} [option]
+     * @param {function} [cb]
      */
     parallel : function(tasks, option, cb){
         var async = cc.async;
-        var l = arguments.length;
-        if(l == 3) {
+        if(cb !== undefined) {
             if(typeof option == "function") option = {trigger : option};
             option.cb = cb || option.cb;
         }
-        else if(l == 2){
+        else if(option !== undefined){
             if(typeof option == "function") option = {cb : option};
-        }else if(l == 1) option = {};
+        }else if(tasks !== undefined) option = {};
         else throw "arguments error!";
         var isArr = tasks instanceof Array;
         var li = isArr ? tasks.length : Object.keys(tasks).length;
@@ -142,16 +155,32 @@ cc.async = {
 
     /**
      * Do tasks by iterator.
-     * @param tasks
-     * @param {{cb:{function}, target:{object}, iterator:{function}, iteratorTarget:{function}}|function} option
-     * @param cb
+     * The format of the option should be:
+     *  {
+     *      cb: function,
+     *      target: object,
+     *      iterator: function,
+     *      iteratorTarget: function
+     *  }
+     * @param {array} tasks
+     * @param {object|function} [option]
+     * @param {function} [cb]
      */
-    map : function(tasks, option, cb){
+    map: function(tasks, option, cb){
         var self = this;
-        var l = arguments.length;
+        var len = arguments.length;
+        if(typeof option == "function")
+            option = {iterator : option};
+        if(len === 3)
+            option.cb = cb || option.cb;
+        else if(len == 2);
+        else
+            throw "arguments error!";
         if(typeof option == "function") option = {iterator : option};
-        if(l == 3) option.cb = cb || option.cb;
-        else if(l == 2);
+        if(cb !== undefined)
+	        option.cb = cb || option.cb;
+        else if(option !== undefined)
+	        ;
         else throw "arguments error!";
         var isArr = tasks instanceof Array;
         var li = isArr ? tasks.length : Object.keys(tasks).length;
@@ -172,6 +201,7 @@ cc.async = {
 
 //+++++++++++++++++++++++++something about path begin++++++++++++++++++++++++++++++++
 cc.path = {
+
     /**
      * Join strings to be a path.
      * @example
@@ -198,7 +228,7 @@ cc.path = {
      cc.path.extname("a/b.png?a=1&b=2");//-->".png"
      cc.path.extname("a/b");//-->null
      cc.path.extname("a/b?a=1&b=2");//-->null
-     * @param pathStr
+     * @param {string} pathStr
      * @returns {*}
      */
     extname : function(pathStr){
@@ -214,8 +244,8 @@ cc.path = {
      cc.path.basename("a/b.png", ".png");//-->"b"
      cc.path.basename("a/b.png?a=1&b=2", ".png");//-->"b"
      cc.path.basename("a/b.png", ".txt");//-->"b.png"
-     * @param pathStr
-     * @param extname
+     * @param {string} pathStr
+     * @param {string} [extname]
      * @returns {*}
      */
     basename : function(pathStr, extname){
@@ -235,7 +265,7 @@ cc.path = {
      * @example
      cc.path.driname("a/b/c.png");//-->"a/b"
      cc.path.driname("a/b/c.png?a=1&b=2");//-->"a/b"
-     * @param {String} pathStr
+     * @param {string} pathStr
      * @returns {*}
      */
     dirname : function(pathStr){
@@ -247,8 +277,8 @@ cc.path = {
      * @example
      cc.path.changeExtname("a/b.png", ".plist");//-->"a/b.plist"
      cc.path.changeExtname("a/b.png?a=1&b=2", ".plist");//-->"a/b.plist?a=1&b=2"
-     * @param pathStr
-     * @param extname
+     * @param {string} pathStr
+     * @param {string} [extname]
      * @returns {string}
      */
     changeExtname : function(pathStr, extname){
@@ -258,7 +288,7 @@ cc.path = {
         if(index > 0) {
             tempStr = pathStr.substring(index);
             pathStr = pathStr.substring(0, index);
-        };
+        }
         index = pathStr.lastIndexOf(".");
         if(index < 0) return pathStr + extname + tempStr;
         return pathStr.substring(0, index) + extname + tempStr;
@@ -273,7 +303,7 @@ cc.path = {
      cc.path.changeBasename("a/b/c.plist", "b", true);//-->"a/b/b.plist"
      * @param {String} pathStr
      * @param {String} basename
-     * @param [{Boolean}] isSameExt
+     * @param {Boolean} [isSameExt]
      * @returns {string}
      */
     changeBasename : function(pathStr, basename, isSameExt){
@@ -284,7 +314,7 @@ cc.path = {
         if(index > 0) {
             tempStr = pathStr.substring(index);
             pathStr = pathStr.substring(0, index);
-        };
+        }
         index = pathStr.lastIndexOf("/");
         index = index <= 0 ? 0 : index+1;
         return pathStr.substring(0, index) + basename + ext + tempStr;
@@ -338,10 +368,8 @@ if (/msie/i.test(navigator.userAgent) && !/opera/i.test(navigator.userAgent)) {
     };
 }
 
-
 //+++++++++++++++++++++++++something about loader start+++++++++++++++++++++++++++
 cc.loader = {
-
     _jsCache : {},//cache for js
     _register : {},//register of loaders
     _langPathCache : {},//cache for lang path
@@ -359,15 +387,14 @@ cc.loader = {
         return window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("MSXML2.XMLHTTP");
     },
 
-
     //@MODE_BEGIN DEV
 
     _getArgs4Js : function(args){
         var a0 = args[0], a1 = args[1], a2 = args[2], results = ["", null, null];
 
-        if(args.length == 1){
+        if(args.length === 1){
             results[1] = a0 instanceof Array ? a0 : [a0];
-        }else if(args.length == 2){
+        }else if(args.length === 2){
             if(typeof a1 == "function"){
                 results[1] = a0 instanceof Array ? a0 : [a0];
                 results[2] = a1;
@@ -375,20 +402,21 @@ cc.loader = {
                 results[0] = a0 || "";
                 results[1] = a1 instanceof Array ? a1 : [a1];
             }
-        }else if(args.length == 3){
+        }else if(args.length === 3){
             results[0] = a0 || "";
             results[1] = a1 instanceof Array ? a1 : [a1];
             results[2] = a2;
         }else throw "arguments error to load js!";
         return results;
     },
+
     /**
      * Load js files.
-     * @param {?string=} baseDir   The pre path for jsList.
-     * @param {array.<string>} jsList    List of js path.
-     * @param {function} cb        Callback function
+     * If the third parameter doesn't exist, then the baseDir turns to be "".
      *
-     *      If the arguments.length == 2, then the baseDir turns to be "".
+     * @param {string} [baseDir]   The pre path for jsList.
+     * @param {array} jsList    List of js path.
+     * @param {function} [cb]        Callback function
      * @returns {*}
      */
     loadJs : function(baseDir, jsList, cb){
@@ -407,9 +435,10 @@ cc.loader = {
     },
     /**
      * Load js width loading image.
-     * @param {?string} baseDir
+     *
+     * @param {string} [baseDir]
      * @param {array} jsList
-     * @param {function} cb
+     * @param {function} [cb]
      */
     loadJsWithImg : function(baseDir, jsList, cb){
         var self = this, jsLoadingImg = self._loadJsImg(),
@@ -466,8 +495,8 @@ cc.loader = {
 
     /**
      * Load a single resource as txt.
-     * @param {!string} url
-     * @param {function} cb arguments are : err, txt
+     * @param {string} url
+     * @param {function} [cb] arguments are : err, txt
      */
     loadTxt : function(url, cb){
         if(!cc._isNodeJs){
@@ -517,48 +546,57 @@ cc.loader = {
 
     /**
      * Load a single resource as json.
-     * @param {!string} url
-     * @param {function} cb arguments are : err, json
+     * @param {string} url
+     * @param {function} [cb] arguments are : err, json
      */
     loadJson : function(url, cb){
         this.loadTxt(url, function(err, txt){
             try{
                 err ? cb(err) : cb(null, JSON.parse(txt));
             }catch(e){
-                throw e;
-                cb("load json [" + url + "] failed : " + e);
+                throw "load json [" + url + "] failed : " + e;
             }
         });
     },
 
+    _checkIsImageURL: function(url){
+        var ext = /(\.png)|(\.jpg)|(\.bmp)|(\.jpeg)|(\.gif)/.exec(url);
+        return (ext != null);
+    },
     /**
      * Load a single image.
      * @param {!string} url
-     * @param [{object}] option
+     * @param {object} [option]
      * @param {function} cb
+     * @param {string} url
+     * @param {object} [option]
+     * @param {function} [cb]
      * @returns {Image}
      */
     loadImg : function(url, option, cb){
-        var l = arguments.length;
         var opt = {
             isCrossOrigin : true
         };
-        if(l == 3) {
+        if(cb !== undefined) {
             opt.isCrossOrigin = option.isCrossOrigin == null ? opt.isCrossOrigin : option.isCrossOrigin;
         }
-        else if(l == 2) cb = option;
+        else if(option !== undefined)
+	        cb = option;
 
         var img = new Image();
-        if(opt.isCrossOrigin) img.crossOrigin = "Anonymous";
+        if(opt.isCrossOrigin)
+            img.crossOrigin = "Anonymous";
 
         img.addEventListener("load", function () {
             this.removeEventListener('load', arguments.callee, false);
             this.removeEventListener('error', arguments.callee, false);
-            if(cb) cb(null, img);
+            if(cb)
+                cb(null, img);
         });
         img.addEventListener("error", function () {
             this.removeEventListener('error', arguments.callee, false);
-            if(cb) cb("load image failed");
+            if(cb)
+                cb("load image failed");
         });
         img.src = url;
         return img;
@@ -574,10 +612,11 @@ cc.loader = {
         }
         return arrData;
     },
+
     /**
      * Load binary data by url.
      * @param {String} url
-     * @param {Function} cb
+     * @param {Function} [cb]
      */
     loadBinary : function(url, cb){
         var self = this;
@@ -637,7 +676,7 @@ cc.loader = {
      * Iterator function to load res
      * @param {object} item
      * @param {number} index
-     * @param {function} cb
+     * @param {function} [cb]
      * @returns {*}
      * @private
      */
@@ -646,16 +685,18 @@ cc.loader = {
         var type = item.type;
         if(type){
             type = "." + type.toLowerCase();
-            url = item.name + type;
+            url = item.src ? item.src : item.name + type;
         }else{
             url = item;
             type = cc.path.extname(url);
         }
 
         var obj = self.cache[url];
-        if(obj) return cb(null, obj);
+        if(obj)
+            return cb(null, obj);
         var loader = self._register[type.toLowerCase()];
-        if(!loader) return cb("loader for [" + type + "] not exists!");
+        if(!loader)
+            return cb("loader for [" + type + "] not exists!");
         var basePath = loader.getBasePath ? loader.getBasePath() : self.resPath;
         var realUrl = self.getUrl(basePath, url);
         loader.load(realUrl, url, item, function(err, data){
@@ -672,13 +713,13 @@ cc.loader = {
 
     /**
      * Get url with basePath.
-     * @param [{string}] basePath
-     * @param {string} url
+     * @param {string} basePath
+     * @param {string} [url]
      * @returns {*}
      */
     getUrl : function(basePath, url){
         var self = this, langPathCache = self._langPathCache, path = cc.path;
-        if(arguments.length == 1){
+        if(basePath !== undefined && url === undefined){
             url = basePath;
             var type = path.extname(url);
             type = type ? type.toLowerCase() : "";
@@ -697,27 +738,33 @@ cc.loader = {
 
     /**
      * Load resources then call the callback.
-     * @param {[string]} res
-     * @param [{function}|{}] option
-     * @param {function} cb :
+     * @param {string} res
+     * @param {function|Object} [option] option or cb
+     * @param {function} [cb]
      */
     load : function(res, option, cb){
-        var l = arguments.length;
-        if(l == 3) {
-            if(typeof option == "function") option = {trigger : option};
+        if(cb !== undefined) {
+            if(typeof option == "function")
+                option = {trigger : option};
         }
-        else if(l == 2){
+        else if(option !== undefined){
             if(typeof option == "function") {
                 cb = option;
                 option = {};
             }
-        }else if(l == 1) option = {};
-        else throw "arguments error!";
+        }
+        else if(res !== undefined)
+            option = {};
+        else
+            throw "arguments error!";
         option.cb = function(err, results){
-            if(err) cc.log(err);
-            if(cb) cb(results);
+            if(err)
+                cc.log(err);
+            if(cb)
+                cb(results);
         };
-        if(!(res instanceof Array)) res = [res];
+        if(!(res instanceof Array))
+            res = [res];
         option.iterator = this._loadResIterator;
         option.iteratorTarget = this;
         cc.async.map(res, option);
@@ -761,7 +808,7 @@ cc.loader = {
      *              </plist>                                                                                           <br/>
      * </p>
      * @param {String} filename  The plist file name.
-     * @param {Function} cb     callback
+     * @param {Function} [cb]     callback
      */
     loadAliases : function(url, cb){
         var self = this, dict = self.getRes(url);
@@ -775,7 +822,7 @@ cc.loader = {
     /**
      * Register a resource loader into loader.
      * @param {string} extname
-     * @param {load : function} loader
+     * @param {function} loader
      */
     register : function(extNames, loader){
         if(!extNames || !loader) return;
@@ -850,13 +897,18 @@ cc.loader = {
     };
 
     if (typeof document.addEventListener !== "undefined" && hidden) {
-        document.addEventListener(visibilityChange, function(){
+        document.addEventListener(visibilityChange, function () {
             if (document[hidden]) onHidden();
             else onShow();
         }, false);
-    }else{
+    } else {
         win.addEventListener("blur", onHidden, false);
         win.addEventListener("focus", onShow, false);
+    }
+
+    if ("onpageshow" in window && "onpagehide" in window) {
+        win.addEventListener("pagehide", onHidden, false);
+        win.addEventListener("pageshow", onShow, false);
     }
     win = null;
     visibilityChange = null;
@@ -864,7 +916,6 @@ cc.loader = {
 //+++++++++++++++++++++++++something about window events end+++++++++++++++++++++++++++++
 
 //+++++++++++++++++++++++++something about log start++++++++++++++++++++++++++++
-
 cc._logToWebPage = function (msg) {
     if(!cc._canvas)
         return;
@@ -908,13 +959,19 @@ cc._logToWebPage = function (msg) {
     logList.scrollTop = logList.scrollHeight;
 };
 
-
 //to make sure the cc.log, cc.warn, cc.error and cc.assert would not throw error before init by debugger mode.
 if(console.log){
     cc.log = console.log.bind(console);
-    cc.warn = console.warn.bind(console);
-    cc.error = console.error.bind(console);
-    cc.assert = console.assert.bind(console);
+    cc.warn = console.warn?console.warn.bind(console):console.log.bind(console);
+    cc.error = console.error?console.error.bind(console):console.log.bind(console);
+    if (console.assert)
+        cc.assert = console.assert.bind(console);
+    else {
+        cc.assert = function (cond, message) {
+            if (!cond && message)
+                cc.log(message);
+        };
+    }
 }else{
     cc.log = cc.warn = cc.error = cc.assert = function(){};
 }
@@ -1467,6 +1524,10 @@ cc._setup = function (el, width, height) {
 	cc.plistParser = new cc.PlistParser();
 };
 
+cc._checkWebGLRenderMode = function(){
+    if(cc._renderType !== cc._RENDER_TYPE_WEBGL)
+        throw "This feature supports WebGL render mode only.";
+};
 
 cc._isContextMenuEnable = false;
 /**
@@ -1576,7 +1637,6 @@ cc.game = {
         self._paused = false;
     },
 
-
     /**
      * Run game.
      */
@@ -1634,6 +1694,7 @@ cc.game = {
                 var data = JSON.parse(txt);
                 self.config = _init(data || {});
             }catch(e){
+                cc.log("Failed to read or parse project.json");
                 self.config = _init({});
             }
         }

@@ -73,7 +73,6 @@ cc.textureCache = /** @lends cc.textureCache# */{
         cc.log("TextureCache:addPVRTCImage does not support on HTML5");
     },
 
-
     /**
      * <p>
      *     Returns a Texture2D object given an ETC filename                                                               <br/>
@@ -221,32 +220,40 @@ cc.textureCache = /** @lends cc.textureCache# */{
      * Otherwise it will return a reference of a previously loaded image. <br />
      * Supported image extensions: .png, .jpg, .gif</p>
      * @param {String} url
+     * @param {Function} cb
+     * @param {Object} target
      * @return {cc.Texture2D}
      * @example
      * //example
      * cc.textureCache.addImage("hello.png");
      */
-    addImage:function (url, target, cb) {
+    addImage:function (url, cb, target) {
         if(!url)
             throw "cc.Texture.addImage(): path should be non-null";
-        if(arguments.length == 2){
-            cb = target;
-            target = null;
-        }
+
         var locTexs = this._textures;
         if(cc._renderType === cc._RENDER_TYPE_WEBGL && !cc._rendererInitialized){
             locTexs = this._loadedTexturesBefore;
         }
         var tex = locTexs[url] || locTexs[cc.loader._aliases[url]];
         if(tex) {
-            if(cb) cb.call(target);
+            cb && cb.call(target);
             return tex;
         }
 
         if(!cc.loader.getRes(url)){
-            cc.loader.load(url, function(err){
-                if(cb) cb.call(target);
-            });
+            if (cc.loader._checkIsImageURL(url)) {
+                cc.loader.load(url, function (err) {
+	                cb && cb.call(target);
+                });
+            } else {
+                cc.loader.cache[url] = cc.loader.loadImg(url, function (err, img) {
+                    if(err)
+                        return cb ? cb(err) : err;
+                    cc.textureCache.handleLoadedTexture(url);
+	                cb && cb(null, img);
+                });
+            }
         }
 
         tex = locTexs[url] = new cc.Texture2D();

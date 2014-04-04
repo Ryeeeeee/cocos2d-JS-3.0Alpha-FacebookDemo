@@ -64,10 +64,6 @@ var HelloWorldLayer = cc.Layer.extend({
     }
 });
 
-var loginback=function(){
-    cc.log('aaa')
-}
-
 var HelloWorldScene = cc.Scene.extend({
     onEnter:function () {
         this._super();
