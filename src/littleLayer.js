@@ -103,7 +103,7 @@ var MenuLayer = cc.Layer.extend({
 
         var normal_sp = cc.Sprite.create(normal);
         var down_sp = cc.Sprite.create(down);
-        var btn = cc.MenuItemSprite.create(normal_sp, down_sp, null, this.onClick, this);
+        var btn = cc.MenuItemSprite.create(normal_sp, down_sp, this.onClick, this);
         btn.setTag(tag);
         return btn;
     }
@@ -210,12 +210,17 @@ var HeadLayer = cc.Layer.extend({
     checkLoginStatus:function(){
         //console.log('FB',FB);
         if(FB && !this.bInGetUserInfo){
-            var authinfo = FB.getAuthResponse()
-            //console.log('authinfo: ',authinfo);
-            if ( authinfo != null && authinfo['accessToken'] != null){
-                //console.log('update login status.');
-                this.bInGetUserInfo = true;
-                this.afterLogin();
+            if(!cc.sys.isNative){
+                var authinfo = FB.getAuthResponse()
+                //console.log('authinfo: ',authinfo);
+                if ( authinfo != null && authinfo['accessToken'] != null){
+                    //console.log('update login status.');
+                    this.bInGetUserInfo = true;
+                    this.afterLogin();
+                }
+            }
+            else{
+                ;
             }
         }
         else{

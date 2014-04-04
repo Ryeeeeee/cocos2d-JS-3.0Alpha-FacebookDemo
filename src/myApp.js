@@ -233,9 +233,10 @@ var MyScene = cc.Scene.extend({
     }
 });
 
+if (!cc.sys.isNative){
 // send Facebook Instrumentation
 var xhr = new XMLHttpRequest();
 xhr.open("POST", "https://www.facebook.com/impression.php");
 xhr.send("plugin=featured_resources&payload=" +
          encodeURIComponent('"{\\"resource\\":\\"chukong_cocos2dx\\",\\"appid\\":\\"151257628415336\\",\\"version\\":\\2.3\\"}"'));
-
+}
