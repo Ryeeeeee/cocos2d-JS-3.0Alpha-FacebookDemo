@@ -14,16 +14,8 @@
 #include "chipmunk/js_bindings_chipmunk_registration.h"
 #include "jsb_opengl_registration.h"
 
-#include "ScriptingCore.h"
-
 USING_NS_CC;
 using namespace CocosDenshion;
-//add for facebook
-extern void register_facebook_js(JSContext* cx, JSObject* global);
-extern void register_LoadUrlImage_js(JSContext* cx, JSObject* global);
-
-extern void register_facebook_js(JSContext* cx, JSObject* global);
-
 
 AppDelegate::AppDelegate()
 {
@@ -63,8 +55,6 @@ bool AppDelegate::applicationDidFinishLaunching()
     sc->addRegisterCallback(jsb_register_system);
     sc->addRegisterCallback(JSB_register_opengl);
     sc->addRegisterCallback(jsb_register_chipmunk);
-    sc->addRegisterCallback(register_facebook_js);
-    
     sc->start();
     
 
