@@ -137,6 +137,7 @@ var GameLayer = cc.Layer.extend({
             this.addChild(effect);
             arrEffects.push(effect);
         }
+        return false;
     },
     addEffect:function(num){
         showEffect += 1;
@@ -310,7 +311,12 @@ var particle = cc.Sprite.extend({
 var entity = cc.Sprite.extend ({
     bIsClicked:false,
     init1:function(src, isFriend) {
-        this.init(src);
+        if(!cc.sys.isNative)
+           this.init(src);
+        else{
+            var sp = cc.Sprite.create(src);
+            this.initWithTexture(sp.getTexture());
+        }
         this.positionX = 0;
         this.positionY = 0;
         this.velocityX = 0;

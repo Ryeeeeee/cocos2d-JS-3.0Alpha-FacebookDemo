@@ -283,8 +283,8 @@ var HeadLayer = cc.Layer.extend({
 
         this.lbName.setString(strName);
 		var id = response.id;
-        console.log("here will add img.");
         if(!cc.sys.isNative){
+            console.log("here will add img.");
 //            var spHead = cc.Sprite.create("http://graph.facebook.com/"+id+"/picture?width=90&height=90");
 //            console.log('spHead',spHead);
 //            spHead.setPosition(50, 0);
@@ -312,7 +312,8 @@ var HeadLayer = cc.Layer.extend({
         if(this.headImg != null){
             this.headImg.setVisible(!st);
         }
-        console.log("headimg:",gHeadImg);
+        if(!cc.sys.isNative)
+            console.log("headimg:",gHeadImg);
         if(this.headImg != null){
             this.headImg.removeFromParent(true);
             this.headImg = null;
@@ -327,7 +328,8 @@ var HeadLayer = cc.Layer.extend({
         this.headimgName = src;
         this.headImg.setPosition(50, 0);
         this.headImg.setVisible(true);
-        console.log('in add head image.',gHeadImg);
+        if(!cc.sys.isNative)
+            console.log('in add head image.',gHeadImg);
     },
     setHeadImgSp:function(sp){
         this.addChild(sp);
@@ -339,7 +341,11 @@ var HeadLayer = cc.Layer.extend({
 
         var normal_sp = cc.Sprite.create(normal);
         var down_sp = cc.Sprite.create(down);
-        var btn = cc.MenuItemSprite.create(normal_sp, down_sp, this.onClick, this)
+        var btn;
+        if(cc.sys.isNative)
+            btn = cc.MenuItemSprite.create(normal_sp, down_sp, this.onClick, this)
+        else
+            btn = cc.MenuItemSprite.create(normal_sp, down_sp, null, this.onClick, this)
         btn.setTag(tag);
         return btn;
     }
