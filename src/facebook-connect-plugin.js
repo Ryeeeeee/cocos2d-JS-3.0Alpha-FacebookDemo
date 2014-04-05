@@ -159,6 +159,7 @@ FB.ui = function (params, cb) {
 };
 
 FB.callback = function (index, params) {
+    log('1111111111');
     if (index >= 0 && index < this.cbArray.length) {
         var argNum = arguments.length;
         if (argNum == 2) {

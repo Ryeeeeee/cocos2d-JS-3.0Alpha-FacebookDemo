@@ -18,7 +18,7 @@ var HelloWorldLayer = cc.Layer.extend({
             res.CloseSelected_png,
             function () {
                 cc.log("Menu is clicked!");
-                                                FB.login(loginback);
+                FB.login(loginback);
             }, this);
         closeItem.attr({
             x: size.width - 20,
@@ -63,7 +63,37 @@ var HelloWorldLayer = cc.Layer.extend({
 });
 
 var loginback=function(){
-    cc.log('aaa')
+    cc.log('aaa');
+    //FB.getLoginStatus(statusBack,true);
+    //FB.logout(statusBack);
+    /*FB.ui({
+    method: 'feed',
+    name: 'Facebook Dialogs',
+    link: 'https://developers.facebook.com/docs/dialogs/',
+    picture: 'http://fbrell.com/f8.jpg',
+    caption: 'Reference Documentation',
+    description: 'Dialogs provide a simple, consistent interface for applications to interface with users.'
+  },statusBack);*/
+    /*FB.api(
+    "/1411545565776159",
+    "DELETE",
+    function (response) {
+      if (response && !response.error) {
+        // handle the result 
+      }
+    });*/
+
+    FB.api("/me",
+    function (response) {
+      if (response && !response.error) {
+        /* handle the result */
+      }
+    });
+
+}
+
+var statusBack = function(){
+    cc.log('ssssdadfddddddddddd');
 }
 
 var HelloWorldScene = cc.Scene.extend({
