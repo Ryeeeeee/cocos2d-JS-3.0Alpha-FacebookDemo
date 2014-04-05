@@ -16,7 +16,7 @@ namespace cocosbuilder {
 
 void LabelTTFLoader::onHandlePropTypeColor3(Node * pNode, Node * pParent, const char * pPropertyName, Color3B pColor3B, CCBReader * ccbReader) {
     if(strcmp(pPropertyName, PROPERTY_COLOR) == 0) {
-        ((Label *)pNode)->setColor(pColor3B);
+        ((LabelTTF *)pNode)->setColor(pColor3B);
     } else {
         NodeLoader::onHandlePropTypeColor3(pNode, pParent, pPropertyName, pColor3B, ccbReader);
     }
@@ -24,7 +24,7 @@ void LabelTTFLoader::onHandlePropTypeColor3(Node * pNode, Node * pParent, const 
 
 void LabelTTFLoader::onHandlePropTypeByte(Node * pNode, Node * pParent, const char * pPropertyName, unsigned char pByte, CCBReader * ccbReader) {
     if(strcmp(pPropertyName, PROPERTY_OPACITY) == 0) {
-        ((Label *)pNode)->setOpacity(pByte);
+        ((LabelTTF *)pNode)->setOpacity(pByte);
     } else {
         NodeLoader::onHandlePropTypeByte(pNode, pParent, pPropertyName, pByte, ccbReader);
     }
@@ -32,7 +32,7 @@ void LabelTTFLoader::onHandlePropTypeByte(Node * pNode, Node * pParent, const ch
 
 void LabelTTFLoader::onHandlePropTypeBlendFunc(Node * pNode, Node * pParent, const char * pPropertyName, BlendFunc pBlendFunc, CCBReader * ccbReader) {
     if(strcmp(pPropertyName, PROPERTY_BLENDFUNC) == 0) {
-        ((Label *)pNode)->setBlendFunc(pBlendFunc);
+        ((LabelTTF *)pNode)->setBlendFunc(pBlendFunc);
     } else {
         NodeLoader::onHandlePropTypeBlendFunc(pNode, pParent, pPropertyName, pBlendFunc, ccbReader);
     }
@@ -40,7 +40,7 @@ void LabelTTFLoader::onHandlePropTypeBlendFunc(Node * pNode, Node * pParent, con
 
 void LabelTTFLoader::onHandlePropTypeFontTTF(Node * pNode, Node * pParent, const char * pPropertyName, const char * pFontTTF, CCBReader * ccbReader) {
     if(strcmp(pPropertyName, PROPERTY_FONTNAME) == 0) {
-        ((Label *)pNode)->setFontName(pFontTTF);
+        ((LabelTTF *)pNode)->setFontName(pFontTTF);
     } else {
         NodeLoader::onHandlePropTypeFontTTF(pNode, pParent, pPropertyName, pFontTTF, ccbReader);
     }
@@ -48,7 +48,7 @@ void LabelTTFLoader::onHandlePropTypeFontTTF(Node * pNode, Node * pParent, const
 
 void LabelTTFLoader::onHandlePropTypeText(Node * pNode, Node * pParent, const char * pPropertyName, const char * pText, CCBReader * ccbReader) {
     if(strcmp(pPropertyName, PROPERTY_STRING) == 0) {
-        ((Label *)pNode)->setString(pText);
+        ((LabelTTF *)pNode)->setString(pText);
     } else {
         NodeLoader::onHandlePropTypeText(pNode, pParent, pPropertyName, pText, ccbReader);
     }
@@ -56,7 +56,7 @@ void LabelTTFLoader::onHandlePropTypeText(Node * pNode, Node * pParent, const ch
 
 void LabelTTFLoader::onHandlePropTypeFloatScale(Node * pNode, Node * pParent, const char * pPropertyName, float pFloatScale, CCBReader * ccbReader) {
     if(strcmp(pPropertyName, PROPERTY_FONTSIZE) == 0) {
-        ((Label *)pNode)->setFontSize(pFloatScale);
+        ((LabelTTF *)pNode)->setFontSize(pFloatScale);
     } else {
         NodeLoader::onHandlePropTypeFloatScale(pNode, pParent, pPropertyName, pFloatScale, ccbReader);
     }
@@ -64,19 +64,19 @@ void LabelTTFLoader::onHandlePropTypeFloatScale(Node * pNode, Node * pParent, co
 
 void LabelTTFLoader::onHandlePropTypeIntegerLabeled(Node * pNode, Node * pParent, const char * pPropertyName, int pIntegerLabeled, CCBReader * ccbReader) {
     if(strcmp(pPropertyName, PROPERTY_HORIZONTALALIGNMENT) == 0) {
-        ((Label *)pNode)->setHorizontalAlignment(TextHAlignment(pIntegerLabeled));
+        ((LabelTTF *)pNode)->setHorizontalAlignment(TextHAlignment(pIntegerLabeled));
     } else if(strcmp(pPropertyName, PROPERTY_VERTICALALIGNMENT) == 0) {
-        ((Label *)pNode)->setVerticalAlignment(TextVAlignment(pIntegerLabeled));
+        ((LabelTTF *)pNode)->setVerticalAlignment(TextVAlignment(pIntegerLabeled));
     } else {
         NodeLoader::onHandlePropTypeFloatScale(pNode, pParent, pPropertyName, pIntegerLabeled, ccbReader);
     }
 }
 
-void LabelTTFLoader::onHandlePropTypeSize(Node * pNode, Node * pParent, const char * pPropertyName, Size size, CCBReader * ccbReader) {
+void LabelTTFLoader::onHandlePropTypeSize(Node * pNode, Node * pParent, const char * pPropertyName, Size pSize, CCBReader * ccbReader) {
     if(strcmp(pPropertyName, PROPERTY_DIMENSIONS) == 0) {
-        ((Label *)pNode)->setDimensions(size.width,size.height);
+        ((LabelTTF *)pNode)->setDimensions(pSize);
     } else {
-        NodeLoader::onHandlePropTypeSize(pNode, pParent, pPropertyName, size, ccbReader);
+        NodeLoader::onHandlePropTypeSize(pNode, pParent, pPropertyName, pSize, ccbReader);
     }
 }
 

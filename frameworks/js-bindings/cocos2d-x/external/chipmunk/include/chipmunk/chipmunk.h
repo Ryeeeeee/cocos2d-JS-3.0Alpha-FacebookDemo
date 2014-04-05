@@ -23,7 +23,9 @@
 #define CHIPMUNK_HEADER
 
 #ifdef _MSC_VER
-    #define _USE_MATH_DEFINES
+	#ifndef _USE_MATH_DEFINES
+	#define _USE_MATH_DEFINES
+	#endif
 #endif
 
 #include <stdlib.h>
@@ -110,10 +112,10 @@ typedef struct cpSpace cpSpace;
 
 #include "cpSpace.h"
 
-// Chipmunk 6.2.1
+// Chipmunk 6.1.5
 #define CP_VERSION_MAJOR 6
-#define CP_VERSION_MINOR 2
-#define CP_VERSION_RELEASE 1
+#define CP_VERSION_MINOR 1
+#define CP_VERSION_RELEASE 5
 
 /// Version string.
 extern const char *cpVersionString;

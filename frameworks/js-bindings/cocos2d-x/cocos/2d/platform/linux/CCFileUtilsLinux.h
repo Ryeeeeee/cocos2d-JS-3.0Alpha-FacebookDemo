@@ -51,8 +51,7 @@ public:
     /* override funtions */
     bool init();
     virtual std::string getWritablePath() const;
-private:
-    virtual bool isFileExistInternal(const std::string& strFilePath) const;
+    virtual bool isFileExist(const std::string& strFilePath) const;
 };
 
 // end of platform group

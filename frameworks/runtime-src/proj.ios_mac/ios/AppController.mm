@@ -30,6 +30,7 @@
 #import "AppDelegate.h"
 #import "RootViewController.h"
 #import "CCEAGLView.h"
+#import "FacebookSDK/FacebookSDK.h"
 
 @implementation AppController
 
@@ -84,7 +85,17 @@ static AppDelegate s_sharedApplication;
     cocos2d::Application::getInstance()->run();
     return YES;
 }
-
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    // attempt to extract a token from the url
+    return [FBAppCall handleOpenURL:url
+                  sourceApplication:sourceApplication
+                    fallbackHandler:^(FBAppCall *call) {
+                        
+                    }];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     /*
@@ -95,6 +106,10 @@ static AppDelegate s_sharedApplication;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    
+    [FBAppEvents activateApp];
+    
+    [FBAppCall handleDidBecomeActive];
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */

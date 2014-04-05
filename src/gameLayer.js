@@ -315,7 +315,7 @@ var entity = cc.Sprite.extend ({
            this.init(src);
         else{
             var sp = cc.Sprite.create(src);
-            this.initWithTexture(sp.getTexture());
+           this.addChild(sp);
         }
         this.positionX = 0;
         this.positionY = 0;

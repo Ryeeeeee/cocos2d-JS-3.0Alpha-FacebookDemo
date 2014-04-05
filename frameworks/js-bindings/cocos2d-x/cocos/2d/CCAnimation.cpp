@@ -93,10 +93,10 @@ Animation* Animation::create(void)
     return animation;
 } 
 
-Animation* Animation::createWithSpriteFrames(const Vector<SpriteFrame*>& frames, float delay/* = 0.0f*/, unsigned int loops/* = 1*/)
+Animation* Animation::createWithSpriteFrames(const Vector<SpriteFrame*>& frames, float delay/* = 0.0f*/)
 {
     Animation *animation = new Animation();
-    animation->initWithSpriteFrames(frames, delay, loops);
+    animation->initWithSpriteFrames(frames, delay);
     animation->autorelease();
 
     return animation;
@@ -118,10 +118,10 @@ bool Animation::init()
     return true;
 }
 
-bool Animation::initWithSpriteFrames(const Vector<SpriteFrame*>& frames, float delay/* = 0.0f*/, unsigned int loops/* = 1*/)
+bool Animation::initWithSpriteFrames(const Vector<SpriteFrame*>& frames, float delay/* = 0.0f*/)
 {
+    _loops = 1;
     _delayPerUnit = delay;
-    _loops = loops;
 
     for (auto& spriteFrame : frames)
     {

@@ -42,9 +42,6 @@ THE SOFTWARE.
 #include "ui/UIPageView.h"
 #include "ui/UIHelper.h"
 #include "ui/UIRichText.h"
-#include "ui/UIHBox.h"
-#include "ui/UIVBox.h"
-#include "ui/UIRelativeBox.h"
 
 NS_CC_BEGIN
 namespace ui {

@@ -14,6 +14,7 @@ extern jsval anonEvaluate(JSContext *cx, JSObject *thisObj, const char* string);
 JSObject *fbObject = NULL;
 
 extern "C"{
+
 	void Java_org_cocos2dx_javascript_FacebookConnectPlugin_nativeCallback(JNIEnv*  env, jobject thiz, jint cbIndex,jstring params)
 	{
 		JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
@@ -46,7 +47,7 @@ void FacebookInterface::callbackJs(int cbIndex, const char* params){
 }
 
 void FacebookInterface::login(int cbIndex,const char* scope){
-	log("login");
+
 	JniMethodInfo t;
 	if (JniHelper::getStaticMethodInfo(t
 		, FBJavaClassName

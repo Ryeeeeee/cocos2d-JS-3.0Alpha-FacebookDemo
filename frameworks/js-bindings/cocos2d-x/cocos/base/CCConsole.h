@@ -68,14 +68,12 @@ void CC_DLL log(const char * format, ...) CC_FORMAT_PRINTF(1, 2);
  scheduler->performFunctionInCocosThread( ... );
  ```
  */
-
-#if (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT) && (CC_TARGET_PLATFORM != CC_PLATFORM_WP8)
 class CC_DLL Console
 {
 public:
     struct Command {
-        const char* name;
-        const char* help;
+        const char *name;
+        const char *help;
         std::function<void(int, const std::string&)> callback;
     };
 
@@ -101,8 +99,8 @@ public:
  
 protected:
     void loop();
-    ssize_t readline(int fd, char *buf, size_t maxlen);
-    ssize_t readBytes(int fd, char* buffer, size_t maxlen, bool* more);
+    ssize_t readline(int fd, char *buf, int maxlen);
+    ssize_t readfile(int fd, std::string &file_name, int file_size);
     bool parseCommand(int fd);
     
     void addClient();
@@ -118,7 +116,7 @@ protected:
     void commandProjection(int fd, const std::string &args);
     void commandDirector(int fd, const std::string &args);
     void commandTouch(int fd, const std::string &args);
-    void commandUpload(int fd);
+    void commandUpload(int fd, const std::string &args);
     // file descriptor: socket, console, etc.
     int _listenfd;
     int _maxfd;
@@ -130,7 +128,9 @@ protected:
     bool _running;
     bool _endThread;
 
-    std::string _writablePath;
+    bool _file_uploading;
+    ssize_t _upload_file_size;
+    std::string _upload_file_name;
 
     std::map<std::string, Command> _commands;
 
@@ -139,12 +139,11 @@ protected:
     std::mutex _DebugStringsMutex;
     std::vector<std::string> _DebugStrings;
 
-    intptr_t _touchId;
+    int _touchId;
 private:
     CC_DISALLOW_COPY_AND_ASSIGN(Console);
 };
 
-#endif /* #if (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT) && (CC_TARGET_PLATFORM != CC_PLATFORM_WP8) */
 NS_CC_END
 
 #endif /* defined(__CCCONSOLE_H__) */

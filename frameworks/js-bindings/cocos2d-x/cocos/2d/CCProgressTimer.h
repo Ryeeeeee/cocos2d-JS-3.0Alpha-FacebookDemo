@@ -118,7 +118,7 @@ public:
     virtual void setOpacity(GLubyte opacity) override;
     virtual GLubyte getOpacity() const override;
     
-CC_CONSTRUCTOR_ACCESS:
+protected:
     /**
      * @js ctor
      */
@@ -128,11 +128,9 @@ CC_CONSTRUCTOR_ACCESS:
      * @lua NA
      */
     virtual ~ProgressTimer();
-    
+
     /** Initializes a progress timer with the sprite as the shape the timer goes through */
     bool initWithSprite(Sprite* sp);
-    
-protected:
     void onDraw(const kmMat4 &transform, bool transformUpdated);
     
     Tex2F textureCoordFromAlphaPoint(Point alpha);

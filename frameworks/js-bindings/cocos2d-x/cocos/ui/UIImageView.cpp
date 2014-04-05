@@ -69,7 +69,7 @@ ImageView* ImageView::create()
 void ImageView::initRenderer()
 {
     _imageRenderer = Sprite::create();
-    addProtectedChild(_imageRenderer, IMAGE_RENDERER_Z, -1);
+    Node::addChild(_imageRenderer, IMAGE_RENDERER_Z, -1);
 }
 
 void ImageView::loadTexture(const char *fileName, TextureResType texType)
@@ -166,7 +166,7 @@ void ImageView::setScale9Enabled(bool able)
     
     
     _scale9Enabled = able;
-    removeProtectedChild(_imageRenderer);
+    Node::removeChild(_imageRenderer);
     _imageRenderer = nullptr;
     if (_scale9Enabled)
     {
@@ -177,7 +177,7 @@ void ImageView::setScale9Enabled(bool able)
         _imageRenderer = Sprite::create();
     }
     loadTexture(_textureFile.c_str(),_imageTexType);
-    addProtectedChild(_imageRenderer, IMAGE_RENDERER_Z, -1);
+    Node::addChild(_imageRenderer, IMAGE_RENDERER_Z, -1);
     if (_scale9Enabled)
     {
         bool ignoreBefore = _ignoreSize;

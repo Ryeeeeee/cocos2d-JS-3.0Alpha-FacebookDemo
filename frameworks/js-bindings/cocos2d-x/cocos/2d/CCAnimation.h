@@ -93,8 +93,9 @@ public:
     
     // Overrides
 	virtual AnimationFrame *clone() const override;
+
+protected:
     
-CC_CONSTRUCTOR_ACCESS:
     /**
      * @js ctor
      */
@@ -107,8 +108,6 @@ CC_CONSTRUCTOR_ACCESS:
     
     /** initializes the animation frame with a spriteframe, number of delay units and a notification user info */
     bool initWithSpriteFrame(SpriteFrame* spriteFrame, float delayUnits, const ValueMap& userInfo);
-
-protected:
     
     /** SpriteFrameName to be used */
     SpriteFrame* _spriteFrame;
@@ -148,7 +147,7 @@ public:
      The frames will be added with one "delay unit".
      @since v0.99.5
      */
-    static Animation* createWithSpriteFrames(const Vector<SpriteFrame*>& arrayOfSpriteFrameNames, float delay = 0.0f, unsigned int loops = 1);
+    static Animation* createWithSpriteFrames(const Vector<SpriteFrame*>& arrayOfSpriteFrameNames, float delay = 0.0f);
 
     /* Creates an animation with an array of AnimationFrame, the delay per units in seconds and and how many times it should be executed.
      @since v2.0
@@ -213,8 +212,8 @@ public:
     
     // overrides
 	virtual Animation *clone() const override;
-    
-CC_CONSTRUCTOR_ACCESS:
+
+protected:
     Animation();
     virtual ~Animation(void);
     
@@ -224,14 +223,13 @@ CC_CONSTRUCTOR_ACCESS:
     /** Initializes a Animation with frames and a delay between frames
      @since v0.99.5
      */
-    bool initWithSpriteFrames(const Vector<SpriteFrame*>& arrayOfSpriteFrameNames, float delay = 0.0f, unsigned int loops = 1);
+    bool initWithSpriteFrames(const Vector<SpriteFrame*>& arrayOfSpriteFrameNames, float delay = 0.0f);
     
     /** Initializes a Animation with AnimationFrame
      @since v2.0
      */
     bool initWithAnimationFrames(const Vector<AnimationFrame*>& arrayOfAnimationFrameNames, float delayPerUnit, unsigned int loops);
-
-protected:
+    
     /** total Delay units of the Animation. */
     float _totalDelayUnits;
 

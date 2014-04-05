@@ -45,15 +45,13 @@ public:
     // Override
 	virtual ShakyTiles3D* clone() const override;
     virtual void update(float time) override;
-    
-CC_CONSTRUCTOR_ACCESS:
+
+protected:
     ShakyTiles3D() {}
     virtual ~ShakyTiles3D() {}
-
     /** initializes the action with a range, whether or not to shake Z vertices, a grid size, and duration */
     bool initWithDuration(float duration, const Size& gridSize, int range, bool shakeZ);
 
-protected:
     int _randrange;
     bool _shakeZ;
 
@@ -71,15 +69,13 @@ public:
     // Override
 	virtual ShatteredTiles3D* clone() const override;
     virtual void update(float time) override;
-    
-CC_CONSTRUCTOR_ACCESS:
+
+protected:
     ShatteredTiles3D() {}
     virtual ~ShatteredTiles3D() {}
-
     /** initializes the action with a range, whether or not to shatter Z vertices, a grid size and duration */
     bool initWithDuration(float duration, const Size& gridSize, int range, bool shatterZ);
 
-protected:
     int _randrange;
     bool _once;
     bool _shatterZ;
@@ -106,15 +102,13 @@ public:
     virtual void startWithTarget(Node *target) override;
     virtual void update(float time) override;
 	virtual ShuffleTiles* clone() const override;
-    
-CC_CONSTRUCTOR_ACCESS:
+
+protected:
     ShuffleTiles() {}
     virtual ~ShuffleTiles();
-
     /** initializes the action with a random seed, the grid size and the duration */
     bool initWithDuration(float duration, const Size& gridSize, unsigned int seed);
 
-protected:
     unsigned int _seed;
     unsigned int _tilesCount;
     unsigned int* _tilesOrder;
@@ -234,15 +228,13 @@ public:
 	virtual TurnOffTiles* clone() const override;
     virtual void startWithTarget(Node *target) override;
     virtual void update(float time) override;
-    
-CC_CONSTRUCTOR_ACCESS:
+
+protected:
     TurnOffTiles() {}
     virtual ~TurnOffTiles();
-
     /** initializes the action with a random seed, the grid size and the duration */
     bool initWithDuration(float duration, const Size& gridSize, unsigned int seed);
 
-protected:
     unsigned int    _seed;
     unsigned int    _tilesCount;
     unsigned int*   _tilesOrder;
@@ -269,15 +261,13 @@ public:
     // Override
 	virtual WavesTiles3D* clone() const override;
     virtual void update(float time) override;
-    
-CC_CONSTRUCTOR_ACCESS:
+
+protected:
     WavesTiles3D() {}
     virtual ~WavesTiles3D() {}
-
     /** initializes the action with a number of waves, the waves amplitude, the grid size and the duration */
     bool initWithDuration(float duration, const Size& gridSize, unsigned int waves, float amplitude);
 
-protected:
     unsigned int _waves;
     float _amplitude;
     float _amplitudeRate;
@@ -306,15 +296,13 @@ public:
     // Override
 	virtual JumpTiles3D* clone() const override;
     virtual void update(float time) override;
-    
-CC_CONSTRUCTOR_ACCESS:
+
+protected:
     JumpTiles3D() {}
     virtual ~JumpTiles3D() {}
-
     /** initializes the action with the number of jumps, the sin amplitude, the grid size and the duration */
     bool initWithDuration(float duration, const Size& gridSize, unsigned int numberOfJumps, float amplitude);
 
-protected:
     unsigned int _jumps;
     float _amplitude;
     float _amplitudeRate;
@@ -334,15 +322,13 @@ public :
 	virtual SplitRows* clone() const override;
     virtual void update(float time) override;
     virtual void startWithTarget(Node *target) override;
-    
-CC_CONSTRUCTOR_ACCESS:
+
+protected:
     SplitRows() {}
     virtual ~SplitRows() {}
-
     /** initializes the action with the number of rows to split and the duration */
     bool initWithDuration(float duration, unsigned int rows);
 
-protected:
     unsigned int _rows;
     Size _winSize;
 
@@ -361,15 +347,13 @@ public:
 	virtual SplitCols* clone() const override;
     virtual void update(float time) override;
     virtual void startWithTarget(Node *target) override;
-    
-CC_CONSTRUCTOR_ACCESS:
+
+protected:
     SplitCols() {}
     virtual ~SplitCols() {}
-
     /** initializes the action with the number of columns to split and the duration */
     bool initWithDuration(float duration, unsigned int cols);
 
-protected:
     unsigned int _cols;
     Size _winSize;
 

@@ -134,11 +134,9 @@ public:
     void setTextVerticalAlignment(TextVAlignment alignment);
 
     TextVAlignment getTextVerticalAlignment();
-    
-CC_CONSTRUCTOR_ACCESS:
-    virtual bool init() override;
 
 protected:
+    virtual bool init() override;
     virtual void initRenderer() override;
     virtual void onPressStateChangedToNormal() override;
     virtual void onPressStateChangedToPressed() override;
@@ -159,7 +157,7 @@ protected:
     std::string _fontName;
     int _fontSize;
     float _onSelectedScaleOffset;
-    Label* _labelRenderer;
+    LabelTTF* _labelRenderer;
 };
 
 }

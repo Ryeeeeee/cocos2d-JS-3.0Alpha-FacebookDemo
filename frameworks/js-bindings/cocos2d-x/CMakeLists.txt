@@ -161,7 +161,6 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/external/glfw3/include/${PLATFORM_FOLDER}
   ${CMAKE_CURRENT_SOURCE_DIR}/external/freetype2/include/${PLATFORM_FOLDER}
   ${CMAKE_CURRENT_SOURCE_DIR}/external/websockets/include/${PLATFORM_FOLDER}
-  ${CMAKE_CURRENT_SOURCE_DIR}/external/xxhash
 )
 
 if(WIN32)
@@ -231,9 +230,6 @@ add_subdirectory(external/unzip)
 
 # tinyxml2 library
 add_subdirectory(external/tinyxml2)
-
-# xxhash library
-add_subdirectory(external/xxhash)
 
 # audio
 add_subdirectory(cocos/audio)

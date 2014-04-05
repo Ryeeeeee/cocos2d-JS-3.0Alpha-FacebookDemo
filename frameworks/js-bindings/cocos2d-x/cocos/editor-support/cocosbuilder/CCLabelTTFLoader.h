@@ -2,7 +2,7 @@
 #define _CCB_CCLABELTTFLOADER_H_
 
 #include "CCRef.h"
-#include "CCLabel.h"
+#include "CCLabelTTF.h"
 
 #include "CCNodeLoader.h"
 
@@ -21,7 +21,7 @@ public:
     CCB_STATIC_NEW_AUTORELEASE_OBJECT_METHOD(LabelTTFLoader, loader);
 
 protected:
-    CCB_VIRTUAL_NEW_AUTORELEASE_CREATECCNODE_METHOD(cocos2d::Label);
+    CCB_VIRTUAL_NEW_AUTORELEASE_CREATECCNODE_METHOD(cocos2d::LabelTTF);
 
     virtual void onHandlePropTypeColor3(cocos2d::Node * pNode, cocos2d::Node * pParent, const char * pPropertyName, cocos2d::Color3B pColor3B, CCBReader * ccbReader);
     virtual void onHandlePropTypeByte(cocos2d::Node * pNode, cocos2d::Node * pParent, const char * pPropertyName, unsigned char pByte, CCBReader * ccbReader);

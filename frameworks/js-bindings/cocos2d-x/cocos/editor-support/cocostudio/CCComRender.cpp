@@ -39,17 +39,13 @@ ComRender::ComRender(void)
 
 ComRender::ComRender(cocos2d::Node *node, const char *comName)
 {
-    if (node != nullptr)
-    {
-        _render = node;
-        _render->retain();
-    }
+    _render = node;
     _name.assign(comName);
 }
 
 ComRender::~ComRender(void)
 {
-    CC_SAFE_RELEASE_NULL(_render);
+    _render = nullptr;
 }
 
 void ComRender::onEnter()
@@ -62,10 +58,7 @@ void ComRender::onEnter()
 
 void ComRender::onExit()
 {
-    if (_owner != nullptr)
-    {
-        _owner->removeChild(_render, true);
-    }
+    _render = nullptr;
 }
 
 cocos2d::Node* ComRender::getNode()
@@ -75,16 +68,7 @@ cocos2d::Node* ComRender::getNode()
 
 void ComRender::setNode(cocos2d::Node *node)
 {
-    if (_render != nullptr)
-    {
-        _render->release();
-        _render = nullptr;
-    }
-    if (node != nullptr)
-    {		
-        _render = node;
-        _render->retain();
-    }
+	_render = node;
 }
 
 
@@ -127,18 +111,15 @@ bool ComRender::serialize(void* r)
 			if (strcmp(className, "CCSprite") == 0 && filePath.find(".png") != std::string::npos)
 			{
 				_render = Sprite::create(filePath.c_str());
-                _render->retain();
 			}
 			else if(strcmp(className, "CCTMXTiledMap") == 0 && filePath.find(".tmx") != std::string::npos)
 			{
 				_render = TMXTiledMap::create(filePath.c_str());
-                _render->retain();
 			}
 			else if(strcmp(className, "CCParticleSystemQuad") == 0 && filePath.find(".plist") != std::string::npos)
 			{
 				_render = ParticleSystemQuad::create(filePath.c_str());
                 _render->setPosition(Point(0.0f, 0.0f));
-                _render->retain();
 			}
 			else if(strcmp(className, "CCArmature") == 0)
 			{
@@ -160,7 +141,6 @@ bool ComRender::serialize(void* r)
 				ArmatureDataManager::getInstance()->addArmatureFileInfo(filePath.c_str());
 				Armature *pAr = Armature::create(name);
 				_render = pAr;
-                _render->retain();
 				const char *actionName = DICTOOL->getStringValue_json(*v, "selectedactionname");
 				if (actionName != nullptr && pAr->getAnimation() != nullptr)
 				{
@@ -171,7 +151,6 @@ bool ComRender::serialize(void* r)
 			{
 				cocos2d::ui::Widget* widget = GUIReader::getInstance()->widgetFromJsonFile(filePath.c_str());
                 _render = widget;
-                _render->retain();
 			}
 			else
 			{
@@ -191,7 +170,6 @@ bool ComRender::serialize(void* r)
 				strPngFile.replace(pos, strPngFile.length(), ".png");
 				SpriteFrameCache::getInstance()->addSpriteFramesWithFile(plistPath.c_str(), strPngFile.c_str());
 				_render = Sprite::createWithSpriteFrameName(filePath.c_str());
-                _render->retain();
 			}
 			else
 			{

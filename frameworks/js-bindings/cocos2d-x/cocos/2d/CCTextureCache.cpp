@@ -548,7 +548,6 @@ VolatileTexture::VolatileTexture(Texture2D *t)
 , _fileName("")
 , _text("")
 , _uiImage(nullptr)
-, _hasMipmaps(false)
 {
     _texParams.minFilter = GL_LINEAR;
     _texParams.magFilter = GL_LINEAR;
@@ -636,12 +635,6 @@ void VolatileTextureMgr::addStringTexture(Texture2D *tt, const char* text, const
     vt->_fontDefinition = fontDefinition;
 }
 
-void VolatileTextureMgr::setHasMipmaps(Texture2D *t, bool hasMipmaps)
-{
-    VolatileTexture *vt = findVolotileTexture(t);
-    vt->_hasMipmaps = hasMipmaps;
-}
-
 void VolatileTextureMgr::setTexParameters(Texture2D *t, const Texture2D::TexParams &texParams)
 {
     VolatileTexture *vt = findVolotileTexture(t);
@@ -723,9 +716,6 @@ void VolatileTextureMgr::reloadAllTextures()
             break;
         default:
             break;
-        }
-        if (vt->_hasMipmaps) {
-            vt->_texture->generateMipmap();
         }
         vt->_texture->setTexParameters(vt->_texParams);
     }

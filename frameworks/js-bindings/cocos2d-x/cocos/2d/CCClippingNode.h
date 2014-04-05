@@ -96,10 +96,10 @@ public:
      */
     virtual void onExit() override;
     virtual void visit(Renderer *renderer, const kmMat4 &parentTransform, bool parentTransformUpdated) override;
-    
-CC_CONSTRUCTOR_ACCESS:
+
+protected:
     ClippingNode();
-    
+
     /**
      * @js NA
      * @lua NA
@@ -109,13 +109,12 @@ CC_CONSTRUCTOR_ACCESS:
     /** Initializes a clipping node without a stencil.
      */
     virtual bool init();
-    
+
     /** Initializes a clipping node with an other node as its stencil.
      The stencil node will be retained, and its parent will be set to this clipping node.
      */
     virtual bool init(Node *stencil);
 
-protected:
     /**draw fullscreen quad to clear stencil bits
     */
     void drawFullScreenQuadClearStencil();
@@ -123,7 +122,7 @@ protected:
     Node* _stencil;
     GLfloat _alphaThreshold;
     bool    _inverted;
-
+protected:
     //renderData and callback
     void onBeforeVisit();
     void onAfterDrawStencil();

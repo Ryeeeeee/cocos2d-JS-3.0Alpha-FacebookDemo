@@ -93,13 +93,12 @@ public:
     
     // Overrides
     virtual void draw(Renderer *renderer, const kmMat4 &transform, bool transformUpdated) override;
-    
-CC_CONSTRUCTOR_ACCESS:
+
+protected:
     DrawNode();
     virtual ~DrawNode();
     virtual bool init();
 
-protected:
     void ensureCapacity(int count);
 
     GLuint      _vao;
