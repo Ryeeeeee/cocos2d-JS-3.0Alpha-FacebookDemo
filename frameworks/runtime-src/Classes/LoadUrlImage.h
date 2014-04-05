@@ -3,7 +3,7 @@
 #define __LOAD_URL_IMAGE__
 
 #include "cocos2d.h"
-#include "cocos-ext.h"
+#include "extensions/cocos-ext.h"
 #include "network/HttpClient.h"
 
 class LoadUrlImage : public cocos2d::Ref

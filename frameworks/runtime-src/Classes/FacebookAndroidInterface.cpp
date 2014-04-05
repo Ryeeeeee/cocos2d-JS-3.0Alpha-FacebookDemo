@@ -6,36 +6,37 @@
 #include <android/log.h>
 #include "ScriptingCore.h"
 
-const char* FBJavaClassName = "org/cocos2dx/facebookjsb/FacebookConnectPlugin";
+using namespace cocos2d;
+
+const char* FBJavaClassName = "org/cocos2dx/javascript/FacebookConnectPlugin";
 
 extern jsval anonEvaluate(JSContext *cx, JSObject *thisObj, const char* string);
 JSObject *fbObject = NULL;
 
 extern "C"{
-	void Java_org_cocos2dx_facebookjsb_FacebookConnectPlugin_nativeCallback(JNIEnv*  env, jobject thiz, jint cbIndex,jstring params)
+
+	void Java_org_cocos2dx_javascript_FacebookConnectPlugin_nativeCallback(JNIEnv*  env, jobject thiz, jint cbIndex,jstring params)
 	{
+		JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
 		ScriptingCore* sc = ScriptingCore::getInstance();
 		JSContext *cx = sc->getGlobalContext();
-		
+		log("%d,%d",cx,sc->getGlobalObject());
 		if (fbObject == NULL)
 			fbObject = JSVAL_TO_OBJECT(anonEvaluate(cx, sc->getGlobalObject(), "(function () { return FB; })()"));
-		
 		jsval res;
-		
+
 		if (params != NULL)
 		{
 			jsval argv[2];
 			argv[0] = INT_TO_JSVAL(cbIndex);
 			std::string tstr = JniHelper::jstring2string(params);
 			argv[1] = std_string_to_jsval(cx,tstr);
-
 			JS_CallFunctionName(cx, fbObject, "callback", 2, argv, &res);
 		}
 		else
 		{
 			jsval argv[1];
 			argv[0] = INT_TO_JSVAL(cbIndex);
-
 			JS_CallFunctionName(cx, fbObject, "callback", 1, argv, &res);
 		}
 	}
@@ -46,6 +47,7 @@ void FacebookInterface::callbackJs(int cbIndex, const char* params){
 }
 
 void FacebookInterface::login(int cbIndex,const char* scope){
+
 	JniMethodInfo t;
 	if (JniHelper::getStaticMethodInfo(t
 		, FBJavaClassName
@@ -55,12 +57,12 @@ void FacebookInterface::login(int cbIndex,const char* scope){
 		if (scope)
 		{
 			jstring jeventId = t.env->NewStringUTF(scope);
-			t.env->CallStaticVoidMethod(t.classID, t.methodID, cbIndex,jeventId);
+			t.env->CallStaticVoidMethod(t.classID, t.methodID, cbIndex, jeventId);
 			t.env->DeleteLocalRef(jeventId);
 		} 
 		else
 		{
-			t.env->CallStaticVoidMethod(t.classID, t.methodID, cbIndex,NULL);
+			t.env->CallStaticVoidMethod(t.classID, t.methodID, cbIndex, NULL);
 		}	
 		t.env->DeleteLocalRef(t.classID);
 	}  	
