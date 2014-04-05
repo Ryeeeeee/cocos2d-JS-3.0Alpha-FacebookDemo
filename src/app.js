@@ -16,7 +16,8 @@ var HelloWorldLayer = cc.Layer.extend({
         var closeItem = cc.MenuItemImage.create(
             res.CloseNormal_png,
             res.CloseSelected_png,
-            function () {
+            function ()
+            {
                 cc.log("Menu is clicked!");
                 FB.login(loginback);
             }, this);
@@ -36,6 +37,7 @@ var HelloWorldLayer = cc.Layer.extend({
         // 3. add your codes below...
         // add a label shows "Hello World"
         // create and initialize a label
+       // FB.getLoginStatus(loginback);
         var helloLabel = cc.LabelTTF.create("Hello World", "Arial", 38);
         // position the label on the center of the screen
         helloLabel.x = size.width / 2;

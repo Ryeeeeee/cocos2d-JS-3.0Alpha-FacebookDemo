@@ -6,6 +6,8 @@
  * To change this template use File | Settings | File Templates.
  */
 
+if (cc.sys.isNative)
+{
 var FB = FB || {};
 var FacebookJsb = FacebookJsb || {};
 
@@ -32,10 +34,7 @@ FB.login = function (cb, opts) {
                 FacebookJsb.login(cbIndex);
         }
         else
-        {
-            cc.log('ajhsdjahdjsasd');
             FacebookJsb.login(cbIndex);
-        }
     }
     else
         FacebookJsb.login(-1);
@@ -136,11 +135,11 @@ FB.api = function (par1, par2, par3, par4) {
 
     if (par1.indexOf('/picture') != -1) {
         if(params)
-            params.redirect = false;
+            params.redirect = "false";
         else
-            params = {redirect:false};
+            params = {"redirect":"false"};
     }
-
+    
     var error = FacebookJsb.api(par1, method, JSON.stringify(params), cbIndex);
     if (error != null) {
         var errorObj = eval('(' + error + ')');
@@ -170,3 +169,4 @@ FB.callback = function (index, params) {
             this.cbArray[index]();
     }
 };
+}

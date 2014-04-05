@@ -196,7 +196,7 @@ ccui.Layout = ccui.Widget.extend(/** @lends ccui.Layout# */{
 
     sortAllChildren: function () {
         ccui.Widget.prototype.sortAllChildren.call(this);
-        this.doLayout();
+        this._doLayout();
     },
 
     stencilClippingVisit : null,
@@ -507,7 +507,7 @@ ccui.Layout = ccui.Widget.extend(/** @lends ccui.Layout# */{
     },
 
     rendererVisitCallBack: function () {
-        this.doLayout();
+        this._doLayout();
     },
 
     getClippingRect: function () {
@@ -1448,7 +1448,7 @@ ccui.Layout = ccui.Widget.extend(/** @lends ccui.Layout# */{
             }
         }
     },
-    doLayout: function () {
+    _doLayout: function () {
         if(!this._doLayoutDirty){
             return;
         }
