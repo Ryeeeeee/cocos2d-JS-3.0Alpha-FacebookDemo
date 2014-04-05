@@ -316,6 +316,7 @@ var entity = cc.Sprite.extend ({
         else{
             var sp = cc.Sprite.create(src);
            this.addChild(sp);
+           this.setContentSize(sp.getContentSize());
         }
         this.positionX = 0;
         this.positionY = 0;
