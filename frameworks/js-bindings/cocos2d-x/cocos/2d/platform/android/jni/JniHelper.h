@@ -45,7 +45,7 @@ public:
     static JavaVM* getJavaVM();
     static JNIEnv* getEnv();
 
-    static bool setClassLoaderFrom(jobject activityInstance);
+    static bool setClassLoaderFrom(jobject nativeActivityInstance);
     static bool getStaticMethodInfo(JniMethodInfo &methodinfo,
                                     const char *className,
                                     const char *methodName,
@@ -61,7 +61,8 @@ public:
     static jobject classloader;
 
 private:
-    static JNIEnv* cacheEnv(JavaVM* jvm);
+    static void detach_current_thread (void *env);
+    static bool cacheEnv(JavaVM* jvm);
 
     static bool getMethodInfo_DefaultClassLoader(JniMethodInfo &methodinfo,
                                                  const char *className,
@@ -69,6 +70,7 @@ private:
                                                  const char *paramCode);
 
     static JavaVM* _psJavaVM;
+    static JNIEnv* env;
 };
 
 NS_CC_END

@@ -41,8 +41,8 @@ bool CC_DLL cc_assert_script_compatible(const char *msg)
 
 NS_CC_BEGIN
 
-// 
-// // ScriptHandlerEntry
+// #pragma mark -
+// #pragma mark ScriptHandlerEntry
 
 ScriptHandlerEntry* ScriptHandlerEntry::create(int handler)
 {
@@ -61,8 +61,8 @@ ScriptHandlerEntry::~ScriptHandlerEntry(void)
     }
 }
 
-// 
-// // SchedulerScriptHandlerEntry
+// #pragma mark -
+// #pragma mark SchedulerScriptHandlerEntry
 
 SchedulerScriptHandlerEntry* SchedulerScriptHandlerEntry::create(int handler, float interval, bool paused)
 {
@@ -88,8 +88,8 @@ SchedulerScriptHandlerEntry::~SchedulerScriptHandlerEntry(void)
 }
 
 
-// 
-// // TouchScriptHandlerEntry
+// #pragma mark -
+// #pragma mark TouchScriptHandlerEntry
 
 TouchScriptHandlerEntry* TouchScriptHandlerEntry::create(int handler,
                                                              bool isMultiTouches,
@@ -115,8 +115,8 @@ bool TouchScriptHandlerEntry::init(bool isMultiTouches, int priority, bool swall
     return true;
 }
 
-// 
-// // ScriptEngineManager
+// #pragma mark -
+// #pragma mark ScriptEngineManager
 
 static ScriptEngineManager* s_pSharedScriptEngineManager = nullptr;
 

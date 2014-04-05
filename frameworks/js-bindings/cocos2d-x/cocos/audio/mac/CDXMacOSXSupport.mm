@@ -88,13 +88,7 @@ OSStatus AudioSessionGetProperty(UInt32 inID, UInt32 *ioDataSize, void *outData)
 		result = [_player resume];
 	}	
 	return result;
-}
-
-- (BOOL) resume{
-    BOOL result = [_player resume];
-    return result;
-}
-
+}	
 
 -(void) pause {
 	[_player pause];

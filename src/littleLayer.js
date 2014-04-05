@@ -359,13 +359,7 @@ var ResultLayer = cc.Layer.extend({
         if(this.bInit)
             return;
 
-        //add a gray layer
-        var color = cc.Color(123,123,123,123);
-        var grayLayer = cc.LayerColor.create(color, winSize.width, winSize.height);
-        //grayLayer.setAnchorPoint(cc.p(0,0));
-        grayLayer.setPosition(cc.p(-20,-130));
-        this.addChild(grayLayer);
-        //
+                                  
         this.bkImg = cc.Sprite.create(res.s_modal_box_copy2);
         this.bkImg.setAnchorPoint(cc.p(0, 0));
         this.addChild(this.bkImg);

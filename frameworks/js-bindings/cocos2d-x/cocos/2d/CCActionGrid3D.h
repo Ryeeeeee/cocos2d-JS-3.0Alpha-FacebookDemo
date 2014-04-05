@@ -57,15 +57,13 @@ public:
 	// Overrides
 	virtual Waves3D* clone() const override;
     virtual void update(float time) override;
-    
-CC_CONSTRUCTOR_ACCESS:
+
+protected:
     Waves3D() {}
     virtual ~Waves3D() {}
-
     /** initializes an action with duration, grid size, waves and amplitude */
     bool initWithDuration(float duration, const Size& gridSize, unsigned int waves, float amplitude);
 
-protected:
     unsigned int _waves;
     float _amplitude;
     float _amplitudeRate;
@@ -84,11 +82,10 @@ public:
     // Override
 	virtual FlipX3D* clone() const override;
     virtual void update(float time) override;
-    
-CC_CONSTRUCTOR_ACCESS:
+
+protected:
     FlipX3D() {}
     virtual ~FlipX3D() {}
-
     /** initializes the action with duration */
     bool initWithDuration(float duration);
     virtual bool initWithSize(const Size& gridSize, float duration);
@@ -135,15 +132,13 @@ public:
     // Overrides
 	virtual Lens3D* clone() const override;
     virtual void update(float time) override;
-    
-CC_CONSTRUCTOR_ACCESS:
+
+protected:
     Lens3D() {}
     virtual ~Lens3D() {}
-
     /** initializes the action with center position, radius, a grid size and duration */
     bool initWithDuration(float duration, const Size& gridSize, const Point& position, float radius);
 
-protected:
     /* lens center position */
     Point _position;
     float _radius;
@@ -152,7 +147,7 @@ protected:
     /** lens is concave. (true = concave, false = convex) default is convex i.e. false */
     bool _concave;
 
-    bool _dirty;
+    bool    _dirty;
 
 private:
     CC_DISALLOW_COPY_AND_ASSIGN(Lens3D);
@@ -180,14 +175,12 @@ public:
 	virtual Ripple3D* clone() const override;
     virtual void update(float time) override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
     Ripple3D() {}
     virtual ~Ripple3D() {}
-
     /** initializes the action with radius, number of waves, amplitude, a grid size and duration */
     bool initWithDuration(float duration, const Size& gridSize, const Point& position, float radius, unsigned int waves, float amplitude);
 
-protected:
     /* center position */
     Point _position;
     float _radius;
@@ -203,21 +196,19 @@ private:
 class CC_DLL Shaky3D : public Grid3DAction
 {
 public:
+    Shaky3D() {}
+    virtual ~Shaky3D() {}
     /** creates the action with a range, shake Z vertices, a grid and duration */
     static Shaky3D* create(float duration, const Size& gridSize, int range, bool shakeZ);
 
     // Overrides
 	virtual Shaky3D* clone() const override;
     virtual void update(float time) override;
-    
-CC_CONSTRUCTOR_ACCESS:
-    Shaky3D() {}
-    virtual ~Shaky3D() {}
-    
+
+protected:
     /** initializes the action with a range, shake Z vertices, a grid and duration */
     bool initWithDuration(float duration, const Size& gridSize, int range, bool shakeZ);
 
-protected:
     int _randrange;
     bool _shakeZ;
 
@@ -229,6 +220,8 @@ private:
 class CC_DLL Liquid : public Grid3DAction
 {
 public:
+    Liquid() {}
+    virtual ~Liquid() {}
     /** creates the action with amplitude, a grid and duration */
     static Liquid* create(float duration, const Size& gridSize, unsigned int waves, float amplitude);
 
@@ -241,15 +234,11 @@ public:
     // Overrides
 	virtual Liquid* clone() const override;
     virtual void update(float time) override;
-    
-CC_CONSTRUCTOR_ACCESS:
-    Liquid() {}
-    virtual ~Liquid() {}
-    
+
+protected:
     /** initializes the action with amplitude, a grid and duration */
     bool initWithDuration(float duration, const Size& gridSize, unsigned int waves, float amplitude);
 
-protected:
     unsigned int _waves;
     float _amplitude;
     float _amplitudeRate;
@@ -262,6 +251,8 @@ private:
 class CC_DLL Waves : public Grid3DAction
 {
 public:
+    Waves() {}
+    virtual ~Waves() {}
     /** initializes the action with amplitude, horizontal sin, vertical sin, a grid and duration */
     static Waves* create(float duration, const Size& gridSize, unsigned int waves, float amplitude, bool horizontal, bool vertical);
 
@@ -274,15 +265,11 @@ public:
     // Overrides
 	virtual Waves* clone() const override;
     virtual void update(float time) override;
-    
-CC_CONSTRUCTOR_ACCESS:
-    Waves() {}
-    virtual ~Waves() {}
-    
+
+protected:
     /** initializes the action with amplitude, horizontal sin, vertical sin, a grid and duration */
     bool initWithDuration(float duration, const Size& gridSize, unsigned int waves, float amplitude, bool horizontal, bool vertical);
 
-protected:
     unsigned int _waves;
     float _amplitude;
     float _amplitudeRate;
@@ -297,6 +284,8 @@ private:
 class CC_DLL Twirl : public Grid3DAction
 {
 public:
+    Twirl() {}
+    virtual ~Twirl() {}
     /** creates the action with center position, number of twirls, amplitude, a grid size and duration */
     static Twirl* create(float duration, const Size& gridSize, Point position, unsigned int twirls, float amplitude);
 
@@ -315,15 +304,11 @@ public:
     // Overrides
 	virtual Twirl* clone() const override;
     virtual void update(float time) override;
-    
-CC_CONSTRUCTOR_ACCESS:
-    Twirl() {}
-    virtual ~Twirl() {}
-    
+
+protected:
     /** initializes the action with center position, number of twirls, amplitude, a grid size and duration */
     bool initWithDuration(float duration, const Size& gridSize, Point position, unsigned int twirls, float amplitude);
 
-protected:
     /* twirl center */
     Point _position;
     unsigned int _twirls;

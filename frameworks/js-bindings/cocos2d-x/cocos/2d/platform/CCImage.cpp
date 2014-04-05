@@ -46,9 +46,7 @@ extern "C"
 #include "atitc.h"
 #include "TGAlib.h"
 
-#if (CC_TARGET_PLATFORM != CC_PLATFORM_WP8) && (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT)
 #include "decode.h"
-#endif
 
 #include "ccMacros.h"
 #include "CCCommon.h"
@@ -1834,11 +1832,7 @@ bool Image::initWithPVRData(const unsigned char * data, ssize_t dataLen)
 
 bool Image::initWithWebpData(const unsigned char * data, ssize_t dataLen)
 {
-	bool bRet = false;  
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
-    CCLOG("WEBP image format not supported on WinRT or WP8");
-#else
+	bool bRet = false;
 	do
 	{
         WebPDecoderConfig config;
@@ -1868,10 +1862,8 @@ bool Image::initWithWebpData(const unsigned char * data, ssize_t dataLen)
         
         bRet = true;
 	} while (0);
-#endif
 	return bRet;
 }
-
 
 bool Image::initWithRawData(const unsigned char * data, ssize_t dataLen, int width, int height, int bitsPerComponent, bool preMulti)
 {

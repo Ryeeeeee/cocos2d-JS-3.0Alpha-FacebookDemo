@@ -312,17 +312,8 @@ bool ParticleSystem::initWithDictionary(ValueMap& dictionary, const std::string&
                 {
                     modeB.endRadius = dictionary["minRadius"].asFloat();
                 }
-                
-                if (dictionary.find("minRadiusVariance") != dictionary.end())
-                {
-                    modeB.endRadiusVar = dictionary["minRadiusVariance"].asFloat();
-                }
-                else
-                {
-                    modeB.endRadiusVar = 0.0f;
-                }
-                
-                if (_configName.length()>0)
+                modeB.endRadiusVar = 0.0f;
+               if (_configName.length()>0)
                 {
                     modeB.rotatePerSecond = dictionary["rotatePerSecond"].asInt();
                 }
@@ -477,6 +468,8 @@ bool ParticleSystem::initWithTotalParticles(int numberOfParticles)
     //updateParticleImp = (CC_UPDATE_PARTICLE_IMP) [self methodForSelector:updateParticleSel];
     //for batchNode
     _transformSystemDirty = false;
+    // update after action in run!
+    this->scheduleUpdateWithPriority(1);
 
     return true;
 }
@@ -616,20 +609,6 @@ void ParticleSystem::initParticle(tParticle* particle)
     }    
 }
 
-void ParticleSystem::onEnter()
-{
-    Node::onEnter();
-    
-    // update after action in run!
-    this->scheduleUpdateWithPriority(1);
-}
-
-void ParticleSystem::onExit()
-{
-    this->unscheduleUpdate();
-    Node::onExit();
-}
-
 void ParticleSystem::stopSystem()
 {
     _isActive = false;
@@ -691,6 +670,7 @@ void ParticleSystem::update(float dt)
         currentPosition = _position;
     }
 
+    if (_visible)
     {
         while (_particleIdx < _particleCount)
         {
@@ -831,9 +811,7 @@ void ParticleSystem::update(float dt)
         } //while
         _transformSystemDirty = false;
     }
-    
-    // only update gl buffer when visible
-    if (_visible && ! _batchNode)
+    if (! _batchNode)
     {
         postStep();
     }

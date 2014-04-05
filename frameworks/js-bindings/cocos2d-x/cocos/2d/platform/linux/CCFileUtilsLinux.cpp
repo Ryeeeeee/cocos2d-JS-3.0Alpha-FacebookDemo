@@ -100,9 +100,9 @@ string FileUtilsLinux::getWritablePath() const
     return _writablePath;
 }
 
-bool FileUtilsLinux::isFileExistInternal(const std::string& strFilePath) const
+bool FileUtilsLinux::isFileExist(const std::string& strFilePath) const
 {
-    if (strFilePath.empty())
+    if (0 == strFilePath.length())
     {
         return false;
     }

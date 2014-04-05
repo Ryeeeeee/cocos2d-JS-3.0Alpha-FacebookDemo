@@ -29,17 +29,9 @@ THE SOFTWARE.
 
 NS_CC_BEGIN
 
-#if defined(__GNUC__) && ((__GNUC__ >= 4) || ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 1)))
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-#elif _MSC_VER >= 1400 //vs 2005 or higher
-#pragma warning (push)
-#pragma warning (disable: 4996)
-#endif
-
 LabelTTF::LabelTTF()
 {
     _renderLabel = Label::create();
-    _renderLabel->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
     this->addChild(_renderLabel);
     this->setAnchorPoint(Point::ANCHOR_MIDDLE);
 
@@ -101,7 +93,7 @@ bool LabelTTF::initWithString(const std::string& string, const std::string& font
     _renderLabel->setDimensions(dimensions.width,dimensions.height);
     _renderLabel->setAlignment(hAlignment,vAlignment);
     _renderLabel->setFontName(fontName);
-    _contentDirty = true;
+    this->setContentSize(_renderLabel->getContentSize());
 
     return true;
 }
@@ -110,7 +102,7 @@ bool LabelTTF::initWithStringAndTextDefinition(const std::string& string, FontDe
 {
     _renderLabel->setFontDefinition(textDefinition);
     _renderLabel->setString(string);
-    _contentDirty = true;
+    this->setContentSize(_renderLabel->getContentSize());
     
     return true;
 }
@@ -128,7 +120,7 @@ const std::string& LabelTTF::getString() const
 
 std::string LabelTTF::getDescription() const
 {
-    return StringUtils::format("<LabelTTF | FontName = %s, FontSize = %f, Label = '%s'>", _renderLabel->getFontName().c_str(), _renderLabel->getFontSize(), _renderLabel->getString().c_str());
+    return StringUtils::format("<LabelTTF | FontName = %s, FontSize = %.1f, Label = '%s'>", _renderLabel->getFontName().c_str(), _renderLabel->getFontSize(), _renderLabel->getString().c_str());
 }
 
 TextHAlignment LabelTTF::getHorizontalAlignment() const
@@ -188,16 +180,14 @@ void LabelTTF::setFontName(const std::string& fontName)
 
 void LabelTTF::enableShadow(const Size &shadowOffset, float shadowOpacity, float shadowBlur, bool updateTexture)
 {
-    Color4B temp(Color3B::BLACK);
-    temp.a = 255 * shadowOpacity;
-    _renderLabel->enableShadow(temp,shadowOffset,shadowBlur);
+    _renderLabel->enableShadow(Color3B::BLACK,shadowOffset,shadowOpacity,shadowBlur);
     _contentDirty = true;
 }
 
 void LabelTTF::disableShadow(bool updateTexture)
 {
     _renderLabel->disableEffect();
-    _contentDirty = true;
+    this->setContentSize(_renderLabel->getContentSize());
 }
 
 void LabelTTF::enableStroke(const Color3B &strokeColor, float strokeSize, bool updateTexture)
@@ -209,12 +199,13 @@ void LabelTTF::enableStroke(const Color3B &strokeColor, float strokeSize, bool u
 void LabelTTF::disableStroke(bool updateTexture)
 {
     _renderLabel->disableEffect();
-    _contentDirty = true;
+    this->setContentSize(_renderLabel->getContentSize());
 }
 
 void LabelTTF::setFontFillColor(const Color3B &tintColor, bool updateTexture)
 {
-    _renderLabel->setTextColor(Color4B(tintColor));
+    _renderLabel->setColor(tintColor);
+    this->setContentSize(_renderLabel->getContentSize());
 }
 
 void LabelTTF::setTextDefinition(const FontDefinition& theDefinition)
@@ -277,16 +268,5 @@ const Size& LabelTTF::getContentSize() const
     const_cast<LabelTTF*>(this)->setContentSize(_renderLabel->getContentSize());
     return _contentSize;
 }
-
-Rect LabelTTF::getBoundingBox() const
-{
-    return _renderLabel->getBoundingBox();
-}
-
-#if defined(__GNUC__) && ((__GNUC__ >= 4) || ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 1)))
-#pragma GCC diagnostic warning "-Wdeprecated-declarations"
-#elif _MSC_VER >= 1400 //vs 2005 or higher
-#pragma warning (pop)
-#endif
 
 NS_CC_END

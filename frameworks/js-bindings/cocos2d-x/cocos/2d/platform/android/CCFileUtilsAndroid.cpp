@@ -81,9 +81,9 @@ bool FileUtilsAndroid::init()
     return FileUtils::init();
 }
 
-bool FileUtilsAndroid::isFileExistInternal(const std::string& strFilePath) const
+bool FileUtilsAndroid::isFileExist(const std::string& strFilePath) const
 {
-    if (strFilePath.empty())
+    if (0 == strFilePath.length())
     {
         return false;
     }

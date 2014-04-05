@@ -67,7 +67,7 @@ LoadingBar* LoadingBar::create()
 void LoadingBar::initRenderer()
 {
     _barRenderer = Sprite::create();
-    addProtectedChild(_barRenderer, BAR_RENDERER_Z, -1);
+    Node::addChild(_barRenderer, BAR_RENDERER_Z, -1);
     _barRenderer->setAnchorPoint(Point(0.0,0.5));
 }
 
@@ -172,7 +172,7 @@ void LoadingBar::setScale9Enabled(bool enabled)
         return;
     }
     _scale9Enabled = enabled;
-    removeProtectedChild(_barRenderer);
+    Node::removeChild(_barRenderer);
     _barRenderer = nullptr;
     if (_scale9Enabled)
     {
@@ -183,7 +183,7 @@ void LoadingBar::setScale9Enabled(bool enabled)
         _barRenderer = Sprite::create();
     }
     loadTexture(_textureFile.c_str(),_renderBarTexType);
-    addProtectedChild(_barRenderer, BAR_RENDERER_Z, -1);
+    Node::addChild(_barRenderer, BAR_RENDERER_Z, -1);
     if (_scale9Enabled)
     {
         bool ignoreBefore = _ignoreSize;

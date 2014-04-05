@@ -81,7 +81,7 @@ protected:
     virtual Widget* createCloneInstance() override;
     virtual void copySpecialProperties(Widget* model) override;
 protected:
-    cocos2d::Label* _labelBMFontRenderer;
+    cocos2d::LabelBMFont* _labelBMFontRenderer;
     bool _fntFileHasInit;
     std::string _fntFileName;
     std::string _stringValue;

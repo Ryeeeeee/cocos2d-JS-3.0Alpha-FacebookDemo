@@ -55,13 +55,12 @@ public:
     virtual void stop() override;
     virtual void update(float time) override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
     ActionEase() {}
     virtual ~ActionEase();
     /** initializes the action */
     bool initWithAction(ActionInterval *action);
 
-protected:
     /** The inner action */
     ActionInterval *_inner;
 private:
@@ -86,13 +85,12 @@ public:
 	virtual EaseRateAction* clone() const override = 0;
     virtual EaseRateAction* reverse() const override = 0;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
     EaseRateAction() {}
     virtual ~EaseRateAction();
     /** Initializes the action with the inner action and the rate parameter */
     bool initWithAction(ActionInterval *pAction, float fRate);
 
-protected:
     float _rate;
 
 private:
@@ -114,7 +112,7 @@ public:
 	virtual EaseIn* clone() const override;
 	virtual EaseIn* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
     EaseIn() {}
     virtual ~EaseIn() {}
 
@@ -137,7 +135,7 @@ public:
 	virtual EaseOut* clone() const  override;
 	virtual EaseOut* reverse() const  override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
     EaseOut() {}
     virtual ~EaseOut() {}
 
@@ -160,7 +158,7 @@ public:
 	virtual EaseInOut* clone() const  override;
 	virtual EaseInOut* reverse() const  override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
     EaseInOut() {}
     virtual ~EaseInOut() {}
 
@@ -183,7 +181,7 @@ public:
 	virtual EaseExponentialIn* clone() const override;
 	virtual ActionEase* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
     EaseExponentialIn() {}
     virtual ~EaseExponentialIn() {}
 
@@ -206,7 +204,7 @@ public:
 	virtual EaseExponentialOut* clone() const override;
 	virtual ActionEase* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
     EaseExponentialOut() {}
     virtual ~EaseExponentialOut() {}
 
@@ -229,7 +227,7 @@ public:
 	virtual EaseExponentialInOut* clone() const override;
 	virtual EaseExponentialInOut* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
     EaseExponentialInOut() {}
     virtual ~EaseExponentialInOut() {}
 
@@ -252,7 +250,7 @@ public:
 	virtual EaseSineIn* clone() const override;
 	virtual ActionEase* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
     EaseSineIn() {}
     virtual ~EaseSineIn() {}
 
@@ -275,7 +273,7 @@ public:
 	virtual EaseSineOut* clone() const override;
 	virtual ActionEase* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
     EaseSineOut() {}
     virtual ~EaseSineOut() {}
 
@@ -298,7 +296,7 @@ public:
 	virtual EaseSineInOut* clone() const override;
 	virtual EaseSineInOut* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
     EaseSineInOut() {}
     virtual ~EaseSineInOut() {}
 
@@ -326,13 +324,12 @@ public:
 	virtual EaseElastic* clone() const override = 0;
 	virtual EaseElastic* reverse() const override = 0;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
     EaseElastic() {}
     virtual ~EaseElastic() {}
     /** Initializes the action with the inner action and the period in radians (default is 0.3) */
     bool initWithAction(ActionInterval *action, float period = 0.3f);
 
-protected:
     float _period;
 
 private:
@@ -358,7 +355,7 @@ public:
 	virtual EaseElasticIn* clone() const override;
 	virtual EaseElastic* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
     EaseElasticIn() {}
     virtual ~EaseElasticIn() {}
 
@@ -384,7 +381,7 @@ public:
 	virtual EaseElasticOut* clone() const override;
 	virtual EaseElastic* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
     EaseElasticOut() {}
     virtual ~EaseElasticOut() {}
 
@@ -410,7 +407,7 @@ public:
 	virtual EaseElasticInOut* clone() const override;
 	virtual EaseElasticInOut* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
     EaseElasticInOut() {}
     virtual ~EaseElasticInOut() {}
 
@@ -431,7 +428,7 @@ public:
 	virtual EaseBounce* clone() const override = 0;
 	virtual EaseBounce* reverse() const override = 0;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
     EaseBounce() {}
     virtual ~EaseBounce() {}
 
@@ -456,7 +453,7 @@ public:
 	virtual EaseBounceIn* clone() const override;
 	virtual EaseBounce* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
     EaseBounceIn() {}
     virtual ~EaseBounceIn() {}
 
@@ -481,7 +478,7 @@ public:
 	virtual EaseBounceOut* clone() const override;
 	virtual EaseBounce* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
     EaseBounceOut() {}
     virtual ~EaseBounceOut() {}
 
@@ -506,7 +503,7 @@ public:
 	virtual EaseBounceInOut* clone() const override;
 	virtual EaseBounceInOut* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
     EaseBounceInOut() {}
     virtual ~EaseBounceInOut() {}
 
@@ -531,7 +528,7 @@ public:
 	virtual EaseBackIn* clone() const override;
 	virtual ActionEase* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
     EaseBackIn() {}
     virtual ~EaseBackIn() {}
 
@@ -556,7 +553,7 @@ public:
 	virtual EaseBackOut* clone() const override;
 	virtual ActionEase* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
     EaseBackOut() {}
     virtual ~EaseBackOut() {}
 
@@ -581,7 +578,7 @@ public:
 	virtual EaseBackInOut* clone() const override;
 	virtual EaseBackInOut* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
     EaseBackInOut() {}
     virtual ~EaseBackInOut() {}
 
@@ -606,11 +603,10 @@ public:
 
 	virtual void setBezierParamer( float p0, float p1, float p2, float p3);
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
 	EaseBezierAction() {}
 	virtual ~EaseBezierAction() {}
 
-protected:
 	float _p0;
 	float _p1;
 	float _p2;
@@ -634,7 +630,7 @@ public:
 	virtual EaseQuadraticActionIn* clone() const override;
 	virtual EaseQuadraticActionIn* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
 	EaseQuadraticActionIn() {}
 	virtual ~EaseQuadraticActionIn() {}
 
@@ -657,7 +653,7 @@ public:
 	virtual EaseQuadraticActionOut* clone() const override;
 	virtual EaseQuadraticActionOut* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
 	EaseQuadraticActionOut() {}
 	virtual ~EaseQuadraticActionOut() {}
 
@@ -680,7 +676,7 @@ public:
 	virtual EaseQuadraticActionInOut* clone() const override;
 	virtual EaseQuadraticActionInOut* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
 	EaseQuadraticActionInOut() {}
 	virtual ~EaseQuadraticActionInOut() {}
 
@@ -702,7 +698,7 @@ public:
 	virtual EaseQuarticActionIn* clone() const override;
 	virtual EaseQuarticActionIn* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
 	EaseQuarticActionIn() {}
 	virtual ~EaseQuarticActionIn() {}
 
@@ -724,7 +720,7 @@ public:
 	virtual EaseQuarticActionOut* clone() const override;
 	virtual EaseQuarticActionOut* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
 	EaseQuarticActionOut() {}
 	virtual ~EaseQuarticActionOut() {}
 
@@ -746,7 +742,7 @@ public:
 	virtual EaseQuarticActionInOut* clone() const override;
 	virtual EaseQuarticActionInOut* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
 	EaseQuarticActionInOut() {}
 	virtual ~EaseQuarticActionInOut() {}
 
@@ -769,7 +765,7 @@ public:
 	virtual EaseQuinticActionIn* clone() const override;
 	virtual EaseQuinticActionIn* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
 	EaseQuinticActionIn() {}
 	virtual ~EaseQuinticActionIn() {}
 
@@ -791,7 +787,7 @@ public:
 	virtual EaseQuinticActionOut* clone() const override;
 	virtual EaseQuinticActionOut* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
 	EaseQuinticActionOut() {}
 	virtual ~EaseQuinticActionOut() {}
 
@@ -813,7 +809,7 @@ public:
 	virtual EaseQuinticActionInOut* clone() const override;
 	virtual EaseQuinticActionInOut* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
 	EaseQuinticActionInOut() {}
 	virtual ~EaseQuinticActionInOut() {}
 
@@ -835,7 +831,7 @@ public:
 	virtual EaseCircleActionIn* clone() const override;
 	virtual EaseCircleActionIn* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
 	EaseCircleActionIn() {}
 	virtual ~EaseCircleActionIn() {}
 
@@ -857,7 +853,7 @@ public:
 	virtual EaseCircleActionOut* clone() const override;
 	virtual EaseCircleActionOut* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
 	EaseCircleActionOut() {}
 	virtual ~EaseCircleActionOut() {}
 
@@ -879,7 +875,7 @@ public:
 	virtual EaseCircleActionInOut* clone() const override;
 	virtual EaseCircleActionInOut* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
 	EaseCircleActionInOut() {}
 	virtual ~EaseCircleActionInOut() {}
 
@@ -901,7 +897,7 @@ public:
 	virtual EaseCubicActionIn* clone() const override;
 	virtual EaseCubicActionIn* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
 	EaseCubicActionIn() {}
 	virtual ~EaseCubicActionIn() {}
 
@@ -923,7 +919,7 @@ public:
 	virtual EaseCubicActionOut* clone() const override;
 	virtual EaseCubicActionOut* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
 	EaseCubicActionOut() {}
 	virtual ~EaseCubicActionOut() {}
 
@@ -945,7 +941,7 @@ public:
 	virtual EaseCubicActionInOut* clone() const override;
 	virtual EaseCubicActionInOut* reverse() const override;
 
-CC_CONSTRUCTOR_ACCESS:
+protected:
 	EaseCubicActionInOut() {}
 	virtual ~EaseCubicActionInOut() {}
 

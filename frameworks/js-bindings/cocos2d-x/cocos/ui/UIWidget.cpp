@@ -56,6 +56,7 @@ _positionPercent(Point::ZERO),
 _reorderWidgetChildDirty(true),
 _hitted(false),
 _touchListener(nullptr),
+_nodes(NULL),
 _color(Color3B::WHITE),
 _opacity(255),
 _flippedX(false),
@@ -68,7 +69,9 @@ Widget::~Widget()
 {
     _touchEventListener = nullptr;
     _touchEventSelector = nullptr;
+    _widgetChildren.clear();
     setTouchEnabled(false);
+    _nodes.clear();
 }
 
 Widget* Widget::create()
@@ -85,7 +88,7 @@ Widget* Widget::create()
 
 bool Widget::init()
 {
-    if (ProtectedNode::init())
+    if (Node::init())
     {
         initRenderer();
         setBright(true);
@@ -99,21 +102,76 @@ bool Widget::init()
 void Widget::onEnter()
 {
     updateSizeAndPosition();
-    ProtectedNode::onEnter();
+    Node::onEnter();
 }
 
 void Widget::onExit()
 {
     unscheduleUpdate();
-    ProtectedNode::onExit();
+    Node::onExit();
 }
 
 void Widget::visit(Renderer *renderer, const kmMat4 &parentTransform, bool parentTransformUpdated)
 {
     if (_enabled)
     {
-        ProtectedNode::visit(renderer, parentTransform, parentTransformUpdated);
+        Node::visit(renderer, parentTransform, parentTransformUpdated);
     }
+}
+
+void Widget::addChild(Node *child)
+{
+    Node::addChild(child);
+}
+
+void Widget::addChild(Node * child, int zOrder)
+{
+    Node::addChild(child, zOrder);
+}
+
+void Widget::addChild(Node* child, int zOrder, int tag)
+{
+    CCASSERT(dynamic_cast<Widget*>(child) != nullptr, "Widget only supports Widgets as children");
+    Node::addChild(child, zOrder, tag);
+    _widgetChildren.pushBack(child);
+}
+
+void Widget::sortAllChildren()
+{
+    _reorderWidgetChildDirty = _reorderChildDirty;
+    Node::sortAllChildren();
+    if( _reorderWidgetChildDirty )
+    {
+        std::sort( std::begin(_widgetChildren), std::end(_widgetChildren), nodeComparisonLess );
+        _reorderWidgetChildDirty = false;
+    }
+}
+
+Node* Widget::getChildByTag(int aTag)
+{
+    CCASSERT( aTag != Node::INVALID_TAG, "Invalid tag");
+
+    for (auto& child : _widgetChildren)
+    {
+        if(child && child->getTag() == aTag)
+            return child;
+    }
+    return nullptr;
+}
+
+Vector<Node*>& Widget::getChildren()
+{
+    return _widgetChildren;
+}
+
+const Vector<Node*>& Widget::getChildren() const
+{
+    return _widgetChildren;
+}
+
+ssize_t Widget::getChildrenCount() const
+{
+    return _widgetChildren.size();
 }
 
 Widget* Widget::getWidgetParent()
@@ -121,53 +179,152 @@ Widget* Widget::getWidgetParent()
     return dynamic_cast<Widget*>(getParent());
 }
 
+void Widget::removeFromParent()
+{
+    removeFromParentAndCleanup(true);
+}
+
+void Widget::removeFromParentAndCleanup(bool cleanup)
+{
+    Node::removeFromParentAndCleanup(cleanup);
+}
+
+void Widget::removeChild(Node *child, bool cleanup)
+{
+    Node::removeChild(child, cleanup);
+    _widgetChildren.eraseObject(child);
+}
+
+void Widget::removeChildByTag(int tag, bool cleanup)
+{
+    CCASSERT( tag != Node::INVALID_TAG, "Invalid tag");
+
+    Node *child = getChildByTag(tag);
+
+    if (child == nullptr)
+    {
+        CCLOG("cocos2d: removeChildByTag(tag = %d): child not found!", tag);
+    }
+    else
+    {
+        removeChild(child, cleanup);
+    }
+}
+
+void Widget::removeAllChildren()
+{
+    removeAllChildrenWithCleanup(true);
+}
+
+void Widget::removeAllChildrenWithCleanup(bool cleanup)
+{
+    for (auto& child : _widgetChildren)
+    {
+        if (child)
+        {
+            Node::removeChild(child);
+        }
+    }
+    _widgetChildren.clear();
+}
+
 void Widget::setEnabled(bool enabled)
 {
     _enabled = enabled;
-    for (auto& child : _children)
+    for (auto& child : _widgetChildren)
     {
         if (child)
         {
-            Widget* widgetChild = dynamic_cast<Widget*>(child);
-            if (widgetChild)
-            {
-                widgetChild->setEnabled(enabled);
-            }
-        }
-    }
-    
-    for (auto& child : _protectedChildren)
-    {
-        if (child)
-        {
-            Widget* widgetChild = dynamic_cast<Widget*>(child);
-            if (widgetChild)
-            {
-                widgetChild->setEnabled(enabled);
-            }
+            static_cast<Widget*>(child)->setEnabled(enabled);
         }
     }
 }
 
 Widget* Widget::getChildByName(const char *name)
 {
-    for (auto& child : _children)
+    for (auto& child : _widgetChildren)
     {
         if (child)
         {
-            Widget* widgetChild = dynamic_cast<Widget*>(child);
-            if (widgetChild)
+            Widget* widgetChild = static_cast<Widget*>(child);
+            if (strcmp(widgetChild->getName(), name) == 0)
             {
-                if (strcmp(widgetChild->getName(), name) == 0)
-                {
-                    return widgetChild;
-                }
+                return widgetChild;
             }
         }
     }
     return nullptr;
 }
-    
+
+void Widget::addNode(Node* node)
+{
+    addNode(node, node->getLocalZOrder(), node->getTag());
+}
+
+void Widget::addNode(Node * node, int zOrder)
+{
+    addNode(node, zOrder, node->getTag());
+}
+
+void Widget::addNode(Node* node, int zOrder, int tag)
+{
+    CCAssert(dynamic_cast<Widget*>(node) == nullptr, "Widget only supports Nodes as renderer");
+    Node::addChild(node, zOrder, tag);
+    _nodes.pushBack(node);
+}
+
+Node* Widget::getNodeByTag(int tag)
+{
+    CCAssert( tag != Node::INVALID_TAG, "Invalid tag");
+
+    for (auto& node : _nodes)
+    {
+        if(node && node->getTag() == tag)
+            return node;
+    }
+    return nullptr;
+}
+
+Vector<Node*>& Widget::getNodes()
+{
+    return _nodes;
+}
+
+void Widget::removeNode(Node* node)
+{
+    Node::removeChild(node);
+    _nodes.eraseObject(node);
+}
+
+void Widget::removeNodeByTag(int tag)
+{
+    CCAssert( tag != Node::INVALID_TAG, "Invalid tag");
+
+    Node *node = this->getNodeByTag(tag);
+
+    if (node == nullptr)
+    {
+        CCLOG("cocos2d: removeNodeByTag(tag = %d): child not found!", tag);
+    }
+    else
+    {
+        this->removeNode(node);
+    }
+}
+
+void Widget::removeAllNodes()
+{
+    for (auto& node : _nodes)
+    {
+        if (node)
+        {
+            Node::removeChild(node);
+        }
+    }
+    _nodes.clear();
+}
+
+
 void Widget::initRenderer()
 {
 }
@@ -387,10 +544,9 @@ void Widget::onSizeChanged()
 {
     for (auto& child : getChildren())
     {
-        Widget* widgetChild = dynamic_cast<Widget*>(child);
-        if (widgetChild)
+        if (child)
         {
-            widgetChild->updateSizeAndPosition();
+            static_cast<Widget*>(child)->updateSizeAndPosition();
         }
     }
 }
@@ -694,7 +850,7 @@ void Widget::setPosition(const Point &pos)
             }
         }
     }
-    ProtectedNode::setPosition(pos);
+    Node::setPosition(pos);
 }
 
 void Widget::setPositionPercent(const Point &percent)
@@ -830,11 +986,8 @@ void Widget::copyClonedWidgetChildren(Widget* model)
 
     for (auto& subWidget : modelChildren)
     {
-        Widget* child = dynamic_cast<Widget*>(subWidget);
-        if (child)
-        {
-            addChild(child->clone());
-        }
+        Widget* child = static_cast<Widget*>(subWidget);
+        addChild(child->clone());
     }
 }
 

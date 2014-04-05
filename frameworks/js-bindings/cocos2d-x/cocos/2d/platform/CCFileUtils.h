@@ -290,7 +290,7 @@ public:
      *  @param strFilePath The path of the file, it could be a relative or absolute path.
      *  @return true if the file exists, otherwise it will return false.
      */
-    virtual bool isFileExist(const std::string& filename) const;
+    virtual bool isFileExist(const std::string& filePath) const = 0;
     
     /**
      *  Checks whether the path is an absolute path.
@@ -354,12 +354,7 @@ protected:
      *  @return The new filename after searching in the filename lookup dictionary.
      *          If the original filename wasn't in the dictionary, it will return the original filename.
      */
-    virtual std::string getNewFilename(const std::string &filename) const;
-    
-    /**
-     *  Checks whether file exists without considering search paths and resolution orders.
-     */
-    virtual bool isFileExistInternal(const std::string& filename) const = 0;
+    virtual std::string getNewFilename(const std::string &filename);
     
     /**
      *  Gets full path for filename, resolution directory and search path.

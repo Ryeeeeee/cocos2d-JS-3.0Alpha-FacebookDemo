@@ -241,7 +241,7 @@ void ActionNode::insertFrame(int index, ActionFrame* frame)
         return;
     }
     int frameType = frame->getFrameType();
-    if(frameType < (int)_frameArray.size())
+    if(frameType < _frameArray.size())
     {
         auto cArray = _frameArray.at(frameType);
         cArray->insert(index, frame);
@@ -256,7 +256,7 @@ void ActionNode::addFrame(ActionFrame* frame)
     }
     int frameType = frame->getFrameType();
 
-    if(frameType < (int)_frameArray.size())
+    if(frameType < _frameArray.size())
     {
         auto cArray = _frameArray.at(frameType);
         cArray->pushBack(frame);
@@ -270,7 +270,7 @@ void ActionNode::deleteFrame(ActionFrame* frame)
         return;
     }
     int frameType = frame->getFrameType();
-    if(frameType < (int)_frameArray.size())
+    if(frameType < _frameArray.size())
     {
         auto cArray = _frameArray.at(frameType);
         cArray->eraseObject(frame);

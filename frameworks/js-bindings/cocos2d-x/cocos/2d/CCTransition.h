@@ -95,15 +95,13 @@ public:
     virtual void onEnter() override;
     virtual void onExit() override;
     virtual void cleanup() override;
-    
-CC_CONSTRUCTOR_ACCESS:
+
+protected:
     TransitionScene();
     virtual ~TransitionScene();
-
     /** initializes a transition with duration and incoming scene */
     bool initWithDuration(float t,Scene* scene);
-    
-protected:
+
     virtual void sceneOrder();
     void setNewScene(float dt);
 
@@ -125,15 +123,14 @@ class CC_DLL TransitionSceneOriented : public TransitionScene
 public:
     /** creates a base transition with duration and incoming scene */
     static TransitionSceneOriented * create(float t,Scene* scene, Orientation orientation);
-    
-CC_CONSTRUCTOR_ACCESS:
+
+protected:
     TransitionSceneOriented();
     virtual ~TransitionSceneOriented();
 
     /** initializes a transition with duration and incoming scene */
     bool initWithDuration(float t,Scene* scene,Orientation orientation);
 
-protected:
     Orientation _orientation;
 
 private:
@@ -579,8 +576,8 @@ public:
      * @lua NA
      */
     virtual void onExit() override;
-    
-CC_CONSTRUCTOR_ACCESS:
+
+protected:
     TransitionFade();
     virtual ~TransitionFade();
 
@@ -588,7 +585,6 @@ CC_CONSTRUCTOR_ACCESS:
     bool initWithDuration(float t, Scene*scene, const Color3B& color);
     bool initWithDuration(float t, Scene* scene);
 
-protected:
     Color4B _color;
 
 private:
