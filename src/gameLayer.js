@@ -310,13 +310,14 @@ var particle = cc.Sprite.extend({
 
 var entity = cc.Sprite.extend ({
     bIsClicked:false,
+    sp:null,
     init1:function(src, isFriend) {
         if(!cc.sys.isNative)
            this.init(src);
         else{
-            var sp = cc.Sprite.create(src);
-           this.addChild(sp);
-           this.setContentSize(sp.getContentSize());
+           this.sp = cc.Sprite.create(src);
+           this.addChild(this.sp);
+           this.setContentSize(this.sp.getContentSize());
         }
         this.positionX = 0;
         this.positionY = 0;
@@ -354,7 +355,7 @@ var entity = cc.Sprite.extend ({
         this.positionY += this.velocityY;
         this.setPosition(this.positionX, this.positionY);
         this.rotationAngle += this.rotationalVelocity;
-        this.setRotation(this.rotationAngle);
+        this.sp.setRotation(this.rotationAngle);
         this.velocityY += this.tickY;
 
         if(isOutOfSize(this.positionX, this.positionY)){

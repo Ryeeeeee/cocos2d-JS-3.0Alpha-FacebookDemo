@@ -26,7 +26,6 @@
 		1AD7E0A818C9DB93004817A6 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 1A6BF21418C9DB5900FB0E1C /* main.js */; };
 		1AD7E0A918C9DBE3004817A6 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 1A6BF21418C9DB5900FB0E1C /* main.js */; };
 		1AE159EC18C9DF3600FCA372 /* project.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A1A081B18C9DF05005C6854 /* project.json */; };
-		260367BA18EEB9E800275E5B /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260367B918EEB9E800275E5B /* FacebookSDK.framework */; };
 		260367C718EEB9F700275E5B /* CCUIFaceBook.mm in Sources */ = {isa = PBXBuildFile; fileRef = 260367C018EEB9F700275E5B /* CCUIFaceBook.mm */; };
 		260367C818EEB9F700275E5B /* CCUIFaceBook.mm in Sources */ = {isa = PBXBuildFile; fileRef = 260367C018EEB9F700275E5B /* CCUIFaceBook.mm */; };
 		260367C918EEB9F700275E5B /* CCUIKit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 260367C218EEB9F700275E5B /* CCUIKit.mm */; };
@@ -39,6 +38,9 @@
 		260367D518EEBDDB00275E5B /* js_bindings_loadUrlImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260367D118EEBDDB00275E5B /* js_bindings_loadUrlImage.cpp */; };
 		260367D618EEBDDB00275E5B /* LoadUrlImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260367D218EEBDDB00275E5B /* LoadUrlImage.cpp */; };
 		260367D718EEBDDB00275E5B /* LoadUrlImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260367D218EEBDDB00275E5B /* LoadUrlImage.cpp */; };
+		265DE77F18FB9132004BA4E1 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 265DE77C18FB9132004BA4E1 /* FacebookSDK.framework */; };
+		265DE78018FB9132004BA4E1 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 265DE77D18FB9132004BA4E1 /* LICENSE */; };
+		265DE78118FB9132004BA4E1 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 265DE77E18FB9132004BA4E1 /* README.txt */; };
 		502380DC17EBB88200990C9B /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 502380DB17EBB88200990C9B /* libcurl.dylib */; };
 		5091731A17ECDF7A00D62437 /* Icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 5091731417ECDF7A00D62437 /* Icon-29.png */; };
 		5091731B17ECDF7A00D62437 /* Icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 5091731517ECDF7A00D62437 /* Icon-40.png */; };
@@ -290,7 +292,6 @@
 		1AC34A0E18C99CA5007834C9 /* jsb_create_apis.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = jsb_create_apis.js; path = "../../js-bindings/bindings/script/jsb_create_apis.js"; sourceTree = "<group>"; };
 		1AC34A0F18C99CA5007834C9 /* jsb_loaders.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = jsb_loaders.js; path = "../../js-bindings/bindings/script/jsb_loaders.js"; sourceTree = "<group>"; };
 		1AC6FB34180E9ACB004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = "../../js-bindings/cocos2d-x/build/cocos2d_libs.xcodeproj"; sourceTree = "<group>"; };
-		260367B918EEB9E800275E5B /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		260367BF18EEB9F700275E5B /* CCUIFaceBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCUIFaceBook.h; sourceTree = "<group>"; };
 		260367C018EEB9F700275E5B /* CCUIFaceBook.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCUIFaceBook.mm; sourceTree = "<group>"; };
 		260367C118EEB9F700275E5B /* CCUIKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCUIKit.h; sourceTree = "<group>"; };
@@ -301,6 +302,9 @@
 		260367D118EEBDDB00275E5B /* js_bindings_loadUrlImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = js_bindings_loadUrlImage.cpp; sourceTree = "<group>"; };
 		260367D218EEBDDB00275E5B /* LoadUrlImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoadUrlImage.cpp; sourceTree = "<group>"; };
 		260367D318EEBDDB00275E5B /* LoadUrlImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadUrlImage.h; sourceTree = "<group>"; };
+		265DE77C18FB9132004BA4E1 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		265DE77D18FB9132004BA4E1 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		265DE77E18FB9132004BA4E1 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		502380DB17EBB88200990C9B /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
 		5091731417ECDF7A00D62437 /* Icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-29.png"; path = "ios/Icon-29.png"; sourceTree = "<group>"; };
 		5091731517ECDF7A00D62437 /* Icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-40.png"; path = "ios/Icon-40.png"; sourceTree = "<group>"; };
@@ -404,7 +408,7 @@
 				D6B061241803AB9F0077942B /* CoreMotion.framework in Frameworks */,
 				1A82F5FB169AC92500C4B13A /* libsqlite3.dylib in Frameworks */,
 				D454520C156E22BD00887EB5 /* libz.dylib in Frameworks */,
-				260367BA18EEB9E800275E5B /* FacebookSDK.framework in Frameworks */,
+				265DE77F18FB9132004BA4E1 /* FacebookSDK.framework in Frameworks */,
 				A92275421517C094001B78AA /* QuartzCore.framework in Frameworks */,
 				A92275441517C094001B78AA /* OpenGLES.framework in Frameworks */,
 				A92275461517C094001B78AA /* OpenAL.framework in Frameworks */,
@@ -447,10 +451,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		26AECAC318EE87BA00AC6474 /* FacebookIosSDK */ = {
+		265DE77B18FB9132004BA4E1 /* FacebookIosSDK */ = {
 			isa = PBXGroup;
 			children = (
-				260367B918EEB9E800275E5B /* FacebookSDK.framework */,
+				265DE77C18FB9132004BA4E1 /* FacebookSDK.framework */,
+				265DE77D18FB9132004BA4E1 /* LICENSE */,
+				265DE77E18FB9132004BA4E1 /* README.txt */,
 			);
 			name = FacebookIosSDK;
 			path = ../FacebookIosSDK;
@@ -490,12 +496,12 @@
 		A92275321517C094001B78AA = {
 			isa = PBXGroup;
 			children = (
+				265DE77B18FB9132004BA4E1 /* FacebookIosSDK */,
 				C037820118BF76AF00FE4F13 /* cocos2d_js_bindings.xcodeproj */,
 				1AC6FB34180E9ACB004C840B /* cocos2d_libs.xcodeproj */,
 				C06D18B718C02D4A003D1A65 /* JS Common */,
 				D4545214156E28EF00887EB5 /* Classes */,
 				A92275401517C094001B78AA /* Frameworks */,
-				26AECAC318EE87BA00AC6474 /* FacebookIosSDK */,
 				D45446CC156DE73F00887EB5 /* ios */,
 				509D4ACA17EBB2BE00697056 /* mac */,
 				A922753E1517C094001B78AA /* Products */,
@@ -835,6 +841,7 @@
 				C0F9A1B518C6D1FC00C75ABD /* jsb_cocos2d_extension.js in Resources */,
 				C0F9A1B318C6D1FC00C75ABD /* jsb_cocos2d_constants.js in Resources */,
 				C0F9A1C518C6D1FC00C75ABD /* jsb_opengl.js in Resources */,
+				265DE78118FB9132004BA4E1 /* README.txt in Resources */,
 				C0F9A1C118C6D1FC00C75ABD /* jsb_deprecated.js in Resources */,
 				C0F9A1B118C6D1FC00C75ABD /* jsb_chipmunk.js in Resources */,
 				C0F9A1CD18C6D1FC00C75ABD /* jsb.js in Resources */,
@@ -853,6 +860,7 @@
 				509D4AC317EBB2AB00697056 /* Icon-114.png in Resources */,
 				509D4ABD17EBB2AB00697056 /* Default-568h@2x.png in Resources */,
 				509D4ABF17EBB2AB00697056 /* Default@2x.png in Resources */,
+				265DE78018FB9132004BA4E1 /* LICENSE in Resources */,
 				509D4AC217EBB2AB00697056 /* Icon-76.png in Resources */,
 				5091731B17ECDF7A00D62437 /* Icon-40.png in Resources */,
 				5091731C17ECDF7A00D62437 /* Icon-50.png in Resources */,
@@ -1052,6 +1060,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/liuyuye/Desktop/new/cocos2d-JS-3.0Alpha-FacebookDemo/frameworks/runtime-src/FacebookIosSDK",
+					"/Users/liuyuye/Desktop/cocos2d-JS-3.0Alpha-FacebookDemo/frameworks/runtime-src/FacebookIosSDK",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1080,6 +1089,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/liuyuye/Desktop/new/cocos2d-JS-3.0Alpha-FacebookDemo/frameworks/runtime-src/FacebookIosSDK",
+					"/Users/liuyuye/Desktop/cocos2d-JS-3.0Alpha-FacebookDemo/frameworks/runtime-src/FacebookIosSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ios/Prefix.pch;

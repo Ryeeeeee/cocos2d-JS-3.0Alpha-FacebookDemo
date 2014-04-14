@@ -6,7 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-
+var firstClickLogIn = true;
 var BTN_PLAY = 0;
 var BTN_BRAG = 1;
 var BTN_CHALLENGE = 2;
@@ -237,17 +237,31 @@ var HeadLayer = cc.Layer.extend({
         }
         switch(tag){
             case 1:{
+                if(!firstClickLogIn)
+                {
+                   return;
+                }
                 //facebook login.
                 cc.log("-------log in-----");
                 if (FB)
+                {
+                    firstClickLogIn =false;
                     FB.login(this.loginCallback.bind(this));
+                }
                 else
-                    cc.log("can't connet to facebook,please check the internet.")
+                {
+                                cc.log("can't connet to facebook,please check the internet.");
+                }
             }
                 break;
             case 2:{
+                if(!gLoginStatus)
+                {
+                   return;
+                }
                 cc.log("-------log out-----");
                 if (FB)
+                    firstClickLogIn =true;
                     FB.logout(this.logoutCallback.bind(this));
             }
                 break;
