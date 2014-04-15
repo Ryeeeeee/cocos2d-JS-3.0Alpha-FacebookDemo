@@ -55,8 +55,7 @@ bool CCUIKit::logInFacebookCallBack(int cbIndex,const char*  logInfo)
 }
 const char * CCUIKit::logOutFacebook(int cbIndex)
 {
-    FacebookInterface::callbackJs(cbIndex, [[[CCUIFaceBook shareCCUIFaceBook] logOutFacebook:cbIndex] UTF8String]);
-    return "";
+    return [[[CCUIFaceBook shareCCUIFaceBook] logOutFacebook:cbIndex] UTF8String];;
 }
 bool CCUIKit::logOutFacebookCallBack(int cbIndex,const char*  logInfo)
 {

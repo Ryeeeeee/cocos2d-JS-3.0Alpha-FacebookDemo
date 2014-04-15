@@ -14,8 +14,6 @@ var LoadUrlImage = LoadUrlImage || {};
     callback:function(){
          this.cb(this.imageKey);
     }
-	
-	
 };
 
 LoadUrlImage.cbArray = [];

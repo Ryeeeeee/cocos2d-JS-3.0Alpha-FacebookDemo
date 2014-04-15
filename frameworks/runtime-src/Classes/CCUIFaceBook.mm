@@ -86,25 +86,21 @@ using namespace std;
                                       NSArray * expiresArray = [self.expiresIn componentsSeparatedByString:@"."];
                                       self.expiresIn = expiresArray[0];
                                       NSArray * permissions = session.accessTokenData.permissions;
-                                      NSLog(@"permissions==%@",permissions);
+                                     // NSLog(@"permissions==%@",permissions);
                                       self.signedRequest = @"";
                                       int state = session.state;
                                 
                                       
-                                      //self.logInfo = [NSString stringWithFormat:@"{\"authResponse\":{\"accessToken\":\"%@\",\"userID\":\"%@\",\"expiresIn\":\"%@\",\"signedRequest\":\"%@\"},\"status\":\"%@\"}",self.token,self.userID,self.expiresIn,self.signedRequest,self.status];
                                       switch (state)
                                       {
                                           case FBSessionStateOpen:
                                               self.status = @"connected";
-                                              //CCUIKit::shareCCUIKit()->logInFacebookCallBack(tag, [self.logInfo UTF8String]);
                                               break;
                                           case FBSessionStateClosedLoginFailed:
                                               self.status = @"not_authorized";
                                               break;
                                           case FBSessionStateClosed:
                                               self.status = @"unknown";
-                                              CCUIKit::shareCCUIKit()->logOutFacebookCallBack(logOutCallBackTag, [self.logInfo UTF8String]);
-                                              return ;
                                               break;
                                               
                                           default:
@@ -112,8 +108,17 @@ using namespace std;
                                       }
                                       
                                       self.logInfo = [NSString stringWithFormat:@"{\"authResponse\":{\"accessToken\":\"%@\",\"userID\":\"%@\",\"expiresIn\":\"%@\",\"signedRequest\":\"%@\"},\"status\":\"%@\"}",self.token,self.userID,self.expiresIn,self.signedRequest,self.status];
-                                       CCUIKit::shareCCUIKit()->logInFacebookCallBack(tag, [self.logInfo UTF8String]);
                                       
+                                      
+                                      if (state == FBSessionStateOpen)
+                                      {
+                                        CCUIKit::shareCCUIKit()->logInFacebookCallBack(tag, [self.logInfo UTF8String]);
+                                      }
+                                      else if(state == FBSessionStateClosed)
+                                      {
+                                          CCUIKit::shareCCUIKit()->logOutFacebookCallBack(logOutCallBackTag, [self.logInfo UTF8String]);
+                                      }
+
                                   }];
     return true;
 }
