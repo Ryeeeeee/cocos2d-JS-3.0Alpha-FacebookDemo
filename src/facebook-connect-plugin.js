@@ -64,15 +64,25 @@ FB.getLoginStatus = function (cb, force) {
 
 FB.logout = function (cb) {
     var argNum = arguments.length;
+    
     if (argNum > 0) {
         var type_cb = typeof cb;
+        
         if (type_cb != 'function')
             throw "Expression is of type " + type_cb + ",not function";
-
+        
         var cbIndex = this.cbArray.indexOf(cb);
         if (cbIndex == -1)
             cbIndex = this.cbArray.push(cb) - 1;
-        FacebookJsb.logout(cbIndex);
+        
+        if (argNum == 2) {
+            if (opts.scope != undefined && typeof(opts.scope) == 'string')
+                FacebookJsb.logout(cbIndex, opts.scope);
+            else
+                FacebookJsb.logout(cbIndex);
+        }
+        else
+            FacebookJsb.logout(cbIndex);
     }
     else
         FacebookJsb.logout(-1);
@@ -159,7 +169,8 @@ FB.ui = function (params, cb) {
 
 FB.callback = function (index, params) {
     log('1111111111');
-    if (index >= 0 && index < this.cbArray.length) {
+    if (index >= 0 && index < this.cbArray.length)
+    {
         var argNum = arguments.length;
         if (argNum == 2) {
             var response = eval('(' + params + ')');

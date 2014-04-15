@@ -313,12 +313,12 @@ var HeadLayer = cc.Layer.extend({
     	}
     },
     logoutCallback:function(response){
-        if(response.status=='unknown'){
+        //if(response.status=='unknown'){
             this.setName("player");
             gLoginStatus = false;
             gFriendData = [];
             this.setBtnState(true);
-        }
+        //}
     },
     setBtnState:function(st){
         this.login.setVisible(st);

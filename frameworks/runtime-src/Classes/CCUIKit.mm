@@ -58,6 +58,12 @@ const char * CCUIKit::logOutFacebook(int cbIndex)
     FacebookInterface::callbackJs(cbIndex, [[[CCUIFaceBook shareCCUIFaceBook] logOutFacebook:cbIndex] UTF8String]);
     return "";
 }
+bool CCUIKit::logOutFacebookCallBack(int cbIndex,const char*  logInfo)
+{
+    FacebookInterface::callbackJs(cbIndex,logInfo);
+    
+    return true;
+}
 const char * CCUIKit::getActiveSessionState(int cbIndex,bool force)
 {
     FacebookInterface::callbackJs(cbIndex, CCUIKit::shareCCUIKit()->getActiveSessionState(cbIndex,[[[CCUIFaceBook shareCCUIFaceBook] getActiveSessionState:cbIndex Force:force] UTF8String]));
