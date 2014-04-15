@@ -313,12 +313,12 @@ var HeadLayer = cc.Layer.extend({
     	}
     },
     logoutCallback:function(response){
-        //if(response.status=='unknown'){
+        if(response.status=='unknown' || response.status=='connected' ){
             this.setName("player");
             gLoginStatus = false;
             gFriendData = [];
             this.setBtnState(true);
-        //}
+        }
     },
     setBtnState:function(st){
         this.login.setVisible(st);
@@ -342,8 +342,8 @@ var HeadLayer = cc.Layer.extend({
         this.headimgName = src;
         this.headImg.setPosition(50, 0);
         this.headImg.setVisible(true);
-        if(!cc.sys.isNative)
-            console.log('in add head image.',gHeadImg);
+        //if(!cc.sys.isNative)
+            //console.log('in add head image.',gHeadImg);
     },
     setHeadImgSp:function(sp){
         this.addChild(sp);
