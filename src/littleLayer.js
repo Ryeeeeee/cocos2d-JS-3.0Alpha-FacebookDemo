@@ -58,6 +58,10 @@ var MenuLayer = cc.Layer.extend({
     fbCallback:function(response){
     },
     requestCallback:function(response){
+
+    },
+    payCallback:function(response){
+        alert("paid it");
     },
     onClick:function(node){
         var tag = node.getTag();
@@ -124,11 +128,10 @@ var MenuLayer = cc.Layer.extend({
                             quantity_min: 1,
                             quantity_max: 500
                         },
-                        this.requestCallback
+                        this.payCallback
                     );
                 }
                     break;
-
             }
         //}
     },
