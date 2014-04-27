@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="28cb0d6e-c849-46f4-bd11-9fa8922c35f4" name="Default" comment="" />
+    <list default="true" id="28cb0d6e-c849-46f4-bd11-9fa8922c35f4" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frameworks/runtime-src/proj.android/build-cfg.json" afterPath="$PROJECT_DIR$/frameworks/runtime-src/proj.android/build-cfg.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/littleLayer.js" afterPath="$PROJECT_DIR$/src/littleLayer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frameworks/js-bindings/cocos2d-x/cocos/2d/platform/android/java/project.properties" afterPath="$PROJECT_DIR$/frameworks/js-bindings/cocos2d-x/cocos/2d/platform/android/java/project.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frameworks/runtime-src/proj.android/project.properties" afterPath="$PROJECT_DIR$/frameworks/runtime-src/proj.android/project.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="facebook-js.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,19 +30,30 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="littleLayer.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="littleLayer.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/littleLayer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="15" selection-start="304" selection-end="304" vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="8010">
+            <state line="113" column="50" selection-start="3934" selection-end="3939" vertical-scroll-proportion="3.1273062" vertical-offset="0" max-vertical-offset="8730">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="gameLayer.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/gameLayer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="19" column="14" selection-start="323" selection-end="326" vertical-scroll-proportion="-7.4615383" vertical-offset="91" max-vertical-offset="6525">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="48" selection-start="417" selection-end="417" vertical-scroll-proportion="0.12820514" vertical-offset="75" max-vertical-offset="1470">
+            <state line="37" column="39" selection-start="1529" selection-end="1529" vertical-scroll-proportion="-14.25" vertical-offset="213" max-vertical-offset="1470">
               <folding />
             </state>
           </provider>
@@ -61,13 +79,14 @@
       <list>
         <option value="$PROJECT_DIR$/project.json" />
         <option value="$PROJECT_DIR$/src/facebook-connect-plugin.js" />
-        <option value="$PROJECT_DIR$/src/littleLayer.js" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/src/littleLayer.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="22" />
+    <option name="x" value="277" />
+    <option name="y" value="27" />
     <option name="width" value="1280" />
     <option name="height" value="706" />
   </component>
@@ -190,7 +209,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1280" height="706" extended-state="0" />
+    <frame x="277" y="27" width="1280" height="706" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -229,6 +248,20 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/littleLayer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="15" selection-start="331" selection-end="331" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8220">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="39" selection-start="1529" selection-end="1529" vertical-scroll-proportion="0.0" vertical-offset="213" max-vertical-offset="1470">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/littleLayer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="22" column="24" selection-start="402" selection-end="402" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8550">
@@ -297,16 +330,25 @@
         <state line="18" column="22" selection-start="402" selection-end="402" vertical-scroll-proportion="0.43548387" vertical-offset="0" max-vertical-offset="620" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/littleLayer.js">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="15" selection-start="304" selection-end="304" vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="8010">
+        <state line="37" column="39" selection-start="1529" selection-end="1529" vertical-scroll-proportion="-14.25" vertical-offset="213" max-vertical-offset="1470">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file://$PROJECT_DIR$/src/gameLayer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="48" selection-start="417" selection-end="417" vertical-scroll-proportion="0.12820514" vertical-offset="75" max-vertical-offset="1470">
+        <state line="19" column="14" selection-start="323" selection-end="326" vertical-scroll-proportion="-7.4615383" vertical-offset="91" max-vertical-offset="6525">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/littleLayer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="113" column="50" selection-start="3934" selection-end="3939" vertical-scroll-proportion="3.1273062" vertical-offset="0" max-vertical-offset="8730">
           <folding />
         </state>
       </provider>

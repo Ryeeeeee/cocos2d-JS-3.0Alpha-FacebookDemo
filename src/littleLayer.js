@@ -11,7 +11,9 @@ var BTN_PLAY = 0;
 var BTN_BRAG = 1;
 var BTN_CHALLENGE = 2;
 var BTN_STORE = 3;
-
+var BTN_PAY = 4;
+var pricepointNumber;
+var g_api_url;
 //
 var btn_x = 0;
 var btn_y = 0;
@@ -26,6 +28,7 @@ var MenuLayer = cc.Layer.extend({
         this.setVisible(visble);
     },
     initData:function(){
+
         var play = this.getBtn(res.s_button_play, res.s_button_play_hot, BTN_PLAY);
         play.setPosition(cc.p(0, btn_h*2));
         var brag = this.getBtn(res.s_button_brag, res.s_button_brag_hot, BTN_BRAG);
@@ -37,6 +40,12 @@ var MenuLayer = cc.Layer.extend({
         this.menu = cc.Menu.create(play, brag, challenge);
         this.addChild(this.menu);
         this.menu.setPosition(cc.p(size.width/2, size.height/2));
+        if(!cc.sys.isNative)
+        {
+            var pay = this.getBtn(res.s_button_play, res.s_button_play_hot, BTN_PAY);
+            pay.setPosition(cc.p(0, btn_h*3));
+            this.menu.addChild(pay);
+        }
     },
     setMenuTouchEnable:function(enable){
         if(this.menu != null){
@@ -92,6 +101,31 @@ var MenuLayer = cc.Layer.extend({
                 case BTN_STORE:{
                     //go store
                     cc.log("CLICK STORE!------");
+                }
+                    break;
+                case BTN_PAY:{
+                    //function buyCoinsMobile(pricepointNumber) {
+                        var pricepoint = gUserPricePoints.pricepoints[pricepointNumber];
+
+                        console.log(pricepoint);
+                        var requestID = hash(64);
+                        console.log("Constructing Request ID: " + requestID);
+
+                        var quantity  = Math.round(parseFloat(pricepoint.payout_base_amount)*gUserCurrency.usd_exchange*10);
+
+                        FB.ui({
+                                method: 'pay',
+                                action: 'purchaseitem',
+                                product: g_api_url+'/opengraph/coin.html',
+                                request_id: requestID,
+                                pricepoint_id: pricepoint.pricepoint_id,
+                                quantity: quantity,
+                                quantity_min: 1,
+                                quantity_max: 500
+                            },
+                            verifyPayment
+                        );
+                    //}
                 }
                     break;
             }
