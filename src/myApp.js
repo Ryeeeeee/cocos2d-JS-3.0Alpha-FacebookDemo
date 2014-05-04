@@ -75,7 +75,6 @@ var StManager = cc.Class.extend({
         this.stArr[st].setDisplay(true);
         this.curSt = st;
     }
-
 });
 
 var _menuLayer = null;

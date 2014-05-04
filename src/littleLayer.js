@@ -12,9 +12,8 @@ var BTN_BRAG = 1;
 var BTN_CHALLENGE = 2;
 var BTN_STORE = 3;
 
-var pricepointNumber = " ";
-var g_api_url = " ";
-//
+var pricepointNumber = "";
+var g_api_url = "https://www.cocos2d-x.org/demoapps/facebook/"//
 var btn_x = 0;
 var btn_y = 0;
 var btn_w = 300;
@@ -61,7 +60,10 @@ var MenuLayer = cc.Layer.extend({
 
     },
     payCallback:function(response){
-        alert("paid it");
+        if(response.status = 'completed')
+        alert("Paid Successful!");
+        else
+            alert("Paid Failed!");
     },
     onClick:function(node){
         var tag = node.getTag();
@@ -108,7 +110,7 @@ var MenuLayer = cc.Layer.extend({
                 case BTN_STORE:{
                     //go store
                     cc.log("CLICK STORE!------");
-
+                    /*
                     //function buyCoinsMobile(pricepointNumber) {
                     var pricepoint = gUserPricePoints.pricepoints[pricepointNumber];
 
@@ -127,6 +129,13 @@ var MenuLayer = cc.Layer.extend({
                             quantity: quantity,
                             quantity_min: 1,
                             quantity_max: 500
+                        },
+                        this.payCallback
+                    );*/
+                    FB.ui({
+                            method: 'pay',
+                            action: 'purchaseitem',
+                            product: 'https://www.cocos2d-x.org/demoapps/facebook/og/coins.html'
                         },
                         this.payCallback
                     );
@@ -250,11 +259,20 @@ var HeadLayer = cc.Layer.extend({
         if(FB && !this.bInGetUserInfo){
             if(!cc.sys.isNative){
                 var authinfo = FB.getAuthResponse()
-                //console.log('authinfo: ',authinfo);
+                console.log('authinfo: ',authinfo);
                 if ( authinfo != null && authinfo['accessToken'] != null){
                     //console.log('update login status.');
                     this.bInGetUserInfo = true;
+                    firstClickLogIn =false;
                     this.afterLogin();
+                }
+                else
+                {
+                    if(firstClickLogIn)
+                    {
+                        firstClickLogIn =false;
+                        FB.login(this.loginCallback.bind(this));
+                    }
                 }
             }
             else{

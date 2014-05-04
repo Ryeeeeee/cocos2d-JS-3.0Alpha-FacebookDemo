@@ -355,7 +355,10 @@ var entity = cc.Sprite.extend ({
         this.positionY += this.velocityY;
         this.setPosition(this.positionX, this.positionY);
         this.rotationAngle += this.rotationalVelocity;
-        this.sp.setRotation(this.rotationAngle);
+        if(!cc.sys.isNative)
+            this.setRotation(this.rotationAngle);
+        else
+            this.sp.setRotation(this.rotationAngle);
         this.velocityY += this.tickY;
 
         if(isOutOfSize(this.positionX, this.positionY)){
