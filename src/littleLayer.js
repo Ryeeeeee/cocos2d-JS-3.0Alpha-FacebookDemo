@@ -13,7 +13,6 @@ var BTN_CHALLENGE = 2;
 var BTN_STORE = 3;
 
 var pricepointNumber = "";
-var g_api_url = "https://www.cocos2d-x.org/demoapps/facebook/"//
 var btn_x = 0;
 var btn_y = 0;
 var btn_w = 300;
@@ -110,28 +109,6 @@ var MenuLayer = cc.Layer.extend({
                 case BTN_STORE:{
                     //go store
                     cc.log("CLICK STORE!------");
-                    /*
-                    //function buyCoinsMobile(pricepointNumber) {
-                    var pricepoint = gUserPricePoints.pricepoints[pricepointNumber];
-
-                    console.log(pricepoint);
-                    var requestID = hash(64);
-                    console.log("Constructing Request ID: " + requestID);
-
-                    var quantity  = Math.round(parseFloat(pricepoint.payout_base_amount)*gUserCurrency.usd_exchange*10);
-
-                    FB.ui({
-                            method: 'pay',
-                            action: 'purchaseitem',
-                            product: g_api_url+'/opengraph/coin.html',
-                            request_id: requestID,
-                            pricepoint_id: pricepoint.pricepoint_id,
-                            quantity: quantity,
-                            quantity_min: 1,
-                            quantity_max: 500
-                        },
-                        this.payCallback
-                    );*/
                     FB.ui({
                             method: 'pay',
                             action: 'purchaseitem',

@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28cb0d6e-c849-46f4-bd11-9fa8922c35f4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gameLayer.js" afterPath="$PROJECT_DIR$/src/gameLayer.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/littleLayer.js" afterPath="$PROJECT_DIR$/src/littleLayer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/myApp.js" afterPath="$PROJECT_DIR$/src/myApp.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="facebook-js.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,7 +28,7 @@
       <file leaf-file-name="littleLayer.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/littleLayer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="74" column="47" selection-start="2283" selection-end="2290" vertical-scroll-proportion="0.65217394" vertical-offset="735" max-vertical-offset="9060">
+            <state line="110" column="49" selection-start="3769" selection-end="3769" vertical-scroll-proportion="-6.1826086" vertical-offset="5205" max-vertical-offset="8715">
               <folding />
             </state>
           </provider>
@@ -216,7 +213,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="3" y="22" width="1280" height="711" extended-state="0" />
+    <frame x="3" y="22" width="1280" height="711" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -422,7 +419,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/littleLayer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="47" selection-start="2283" selection-end="2290" vertical-scroll-proportion="0.65217394" vertical-offset="735" max-vertical-offset="9060">
+        <state line="110" column="49" selection-start="3769" selection-end="3769" vertical-scroll-proportion="-6.1826086" vertical-offset="5205" max-vertical-offset="8715">
           <folding />
         </state>
       </provider>
