@@ -79,16 +79,16 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb204670653073618</string>
+				<string>fb501290509975581</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>FacebookAppID</key>
-	<string>204670653073618</string>
+	<string>501290509975581</string>
 	<key>FacebookDisplayName</key>
-	<string>myDemo</string>
+	<string>Cocos2dxLuaDemo</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIPrerenderedIcon</key>
