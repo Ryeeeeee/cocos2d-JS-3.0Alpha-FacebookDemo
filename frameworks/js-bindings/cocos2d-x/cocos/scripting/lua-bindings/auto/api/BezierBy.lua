@@ -1,4 +1,0 @@
-
---------------------------------
--- @module BezierBy
-return nil

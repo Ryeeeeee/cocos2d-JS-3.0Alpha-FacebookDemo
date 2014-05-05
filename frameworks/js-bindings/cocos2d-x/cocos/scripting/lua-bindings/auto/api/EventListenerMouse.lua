@@ -1,4 +1,0 @@
-
---------------------------------
--- @module EventListenerMouse
-return nil

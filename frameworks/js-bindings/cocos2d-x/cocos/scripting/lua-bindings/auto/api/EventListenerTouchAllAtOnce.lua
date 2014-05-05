@@ -1,4 +1,0 @@
-
---------------------------------
--- @module EventListenerTouchAllAtOnce
-return nil

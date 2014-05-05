@@ -1,4 +1,0 @@
-
---------------------------------
--- @module Sequence
-return nil

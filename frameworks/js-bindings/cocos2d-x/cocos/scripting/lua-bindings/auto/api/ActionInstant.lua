@@ -1,4 +1,0 @@
-
---------------------------------
--- @module ActionInstant
-return nil

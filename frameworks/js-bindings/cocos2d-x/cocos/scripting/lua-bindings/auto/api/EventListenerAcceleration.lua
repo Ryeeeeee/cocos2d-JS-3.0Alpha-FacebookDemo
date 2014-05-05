@@ -1,4 +1,0 @@
-
---------------------------------
--- @module EventListenerAcceleration
-return nil

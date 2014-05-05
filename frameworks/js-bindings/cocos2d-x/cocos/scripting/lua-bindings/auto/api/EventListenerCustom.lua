@@ -1,4 +1,0 @@
-
---------------------------------
--- @module EventListenerCustom
-return nil
