@@ -12,7 +12,6 @@
 bin/
 gen/
 assets/
-libs/
 obj/
 .DS_Strore
 local.properties
